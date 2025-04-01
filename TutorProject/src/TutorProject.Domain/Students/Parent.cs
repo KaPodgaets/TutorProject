@@ -1,4 +1,6 @@
-namespace TutorProject.Domain;
+using TutorProject.Domain.Shared;
+
+namespace TutorProject.Domain.Students;
 
 public class Parent
 {

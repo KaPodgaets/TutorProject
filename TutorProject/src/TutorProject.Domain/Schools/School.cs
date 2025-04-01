@@ -1,4 +1,4 @@
-namespace TutorProject.Domain;
+namespace TutorProject.Domain.Schools;
 
 public class School
 {

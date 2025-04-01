@@ -1,4 +1,4 @@
-namespace TutorProject.Domain;
+namespace TutorProject.Domain.Notifications;
 
 public class Notification
 {
