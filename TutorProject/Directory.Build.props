@@ -1,0 +1,46 @@
+<Project>
+    <PropertyGroup>
+        <!-- General settings -->
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+
+        <!-- Output directories -->
+        <BaseOutputPath>$(SolutionDir)artifacts\bin\</BaseOutputPath>
+        <BaseIntermediateOutputPath>$(SolutionDir)artifacts\obj\</BaseIntermediateOutputPath>
+
+        <!-- Treat warnings as errors -->
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+        <!-- Enable deterministic builds -->
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+        <!-- Enable Analizers -->
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <EnableStyleCopAnalizer>true</EnableStyleCopAnalizer>
+
+        <!--
+        Make sure any documentation comments which are included in code get checked for syntax during the build, but do
+        not report warnings for missing comments.
+    
+        CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
+        CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
+        -->
+        <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+        <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+    </PropertyGroup>
+
+    <!-- Package management -->
+    <ItemGroup>
+        <!-- Common analyzer rules -->
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="10.5.0.109200">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+</Project>
