@@ -6,5 +6,9 @@ namespace TutorProject.Presenters.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    
+    [HttpGet]
+    public void Get()
+    {
+        Console.WriteLine("Hello World!");
+    }
 }
