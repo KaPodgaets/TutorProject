@@ -5,12 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-
-    <!-- Output directories -->
-    <!-- turn it off, because of bug with git and new folders -->
-    <BaseOutputPath>$(SolutionDir)artifacts\bin\</BaseOutputPath>
-    <BaseIntermediateOutputPath>$(SolutionDir)artifacts\obj\</BaseIntermediateOutputPath>
-
+    
     <!-- Treat warnings as errors -->
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
