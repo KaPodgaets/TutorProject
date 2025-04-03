@@ -14,16 +14,12 @@
     <!-- Treat warnings as errors -->
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
-    <!-- Enable deterministic builds -->
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-
     <!-- Enable Analizers -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <EnableStyleCopAnalizer>true</EnableStyleCopAnalizer>
 
     <!-- Disable XML documentation output globally (optional) -->
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-
     <!--
     Make sure any documentation comments which are included in code get checked for syntax during the build, but do
     not report warnings for missing comments.
@@ -35,6 +31,9 @@
     <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
 
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
   </PropertyGroup>
 
   <!-- Package management -->
@@ -44,9 +43,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CSharpFunctionalExtensions" Version="3.5.1" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="3.5.1"/>
+  </ItemGroup>
+
+  <!-- VERSION CONTROL -->
+  <ItemGroup>
 
     <!-- package version control -->
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0"/>
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3"/>
   </ItemGroup>
 </Project>

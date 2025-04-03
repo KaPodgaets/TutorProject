@@ -4,7 +4,7 @@ namespace TutorProject.Presenters.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class StudentController : ControllerBase
 {
     [HttpGet]
     public void Get()
