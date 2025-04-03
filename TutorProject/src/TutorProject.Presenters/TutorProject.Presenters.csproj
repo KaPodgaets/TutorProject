@@ -1,17 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+      
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".xml"/>
+    <None Remove="obj\**"/>
+    <None Remove="bin\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="obj\**"/>
+    <Compile Remove="bin\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="obj\**"/>
+    <EmbeddedResource Remove="bin\**"/>
+  </ItemGroup>
 
 </Project>

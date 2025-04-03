@@ -8,8 +8,8 @@
 
     <!-- Output directories -->
     <!-- turn it off, because of bug with git and new folders -->
-    <!--        <BaseOutputPath>$(SolutionDir)artifacts\bin\</BaseOutputPath>-->
-    <!--        <BaseIntermediateOutputPath>$(SolutionDir)artifacts\obj\</BaseIntermediateOutputPath>-->
+    <BaseOutputPath>$(SolutionDir)artifacts\bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)artifacts\obj\</BaseIntermediateOutputPath>
 
     <!-- Treat warnings as errors -->
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -21,6 +21,9 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <EnableStyleCopAnalizer>true</EnableStyleCopAnalizer>
 
+    <!-- Disable XML documentation output globally (optional) -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
     <!--
     Make sure any documentation comments which are included in code get checked for syntax during the build, but do
     not report warnings for missing comments.
@@ -30,6 +33,8 @@
     -->
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
     <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <!-- Package management -->
@@ -39,9 +44,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.5.0.109200">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+
+    <!-- package version control -->
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0"/>
   </ItemGroup>
 </Project>
