@@ -1,14 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
+using TutorProject.Domain.Shared;
 
 namespace TutorProject.Presenters.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StudentController : ControllerBase
+public class StudentController : ApplicationController
 {
     [HttpGet]
-    public void Get()
+    [HttpGet("{userId:guid}")]
+    public async Task<IActionResult> GetStudentById()
     {
-        Console.WriteLine("Hello World!");
+        await Task.CompletedTask;
+
+        return Ok("result");
     }
 }
