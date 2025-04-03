@@ -11,6 +11,8 @@ public class School
     }
 
     public Guid Id { get; set; }
+
     public string MinistryOrganizationId { get; set; }
+
     public string OrganizationName { get; set; }
 }

@@ -2,7 +2,8 @@ namespace TutorProject.Domain.Shared;
 
 public class Address
 {
-    public Address(int streetCode,
+    public Address(
+        int streetCode,
         string streetName,
         int cityCode,
         string cityName,
@@ -18,9 +19,14 @@ public class Address
     }
 
     public int StreetCode { get; set; }
+
     public string StreetName { get; set; }
+
     public int CityCode { get; set; }
+
     public string CityName { get; set; }
+
     public string BuildingNumber { get; set; }
+
     public string BuildingLetter { get; set; }
 }

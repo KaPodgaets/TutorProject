@@ -202,15 +202,15 @@ tab_width = 4
 #CUSTOM
 
 #STYLE COP ANALYZERS
-
-# Отключаем или меняем уровень серьезности предупреждения SA1310, чтобы не конфликтовало с новыми правилами.
+dotnet_diagnostic.SA1010.severity = none
 dotnet_diagnostic.SA1101.severity = none
-# underscore in fields
+dotnet_diagnostic.SA1200.severity = none
 dotnet_diagnostic.SA1308.severity = none
 dotnet_diagnostic.SA1309.severity = none
 dotnet_diagnostic.SA1310.severity = none
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1633.severity = none
+dotnet_diagnostic.S1118.severity = none
 
 # Определяем символы для публичных констант
 dotnet_naming_symbols.public_constants.applicable_kinds = field
