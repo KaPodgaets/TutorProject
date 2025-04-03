@@ -4,7 +4,7 @@ namespace TutorProject.Presenters.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StudentController : ApplicationController
+public class StudentsController : ApplicationController
 {
     [HttpGet("{userId:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid userId)
