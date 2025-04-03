@@ -19,4 +19,8 @@
       <None Remove=".xml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageVersion Update="CSharpFunctionalExtensions" Version="3.5.1" />
+    </ItemGroup>
+
 </Project>

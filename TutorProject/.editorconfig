@@ -28,7 +28,6 @@ dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
 
 
-
 # Code quality analyzers
 dotnet_analyzer_diagnostic.category-security.severity = error
 dotnet_code_quality.ca1802.api_surface = private, internal
@@ -258,3 +257,10 @@ dotnet_naming_symbols.private_constants.required_modifiers = const
 dotnet_naming_style.private_constants_style.capitalization = all_upper
 dotnet_naming_style.private_constants_style.word_separator = _
 
+
+dotnet_naming_style.private_field.required_prefix = _
+dotnet_naming_style.private_field.capitalization = camel_case
+
+dotnet_naming_rule.private_or_internal_field_should_be_privatefield.severity = suggestion
+dotnet_naming_rule.private_or_internal_field_should_be_privatefield.symbols = private_or_internal_field
+dotnet_naming_rule.private_or_internal_field_should_be_privatefield.style = private_field
