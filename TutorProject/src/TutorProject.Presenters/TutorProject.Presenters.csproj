@@ -9,9 +9,5 @@
     <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
   
 </Project>

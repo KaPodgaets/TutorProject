@@ -1,13 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3D1AB0D-9583-4F83-8243-B989DD1DF96B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Domain", "src\TutorProject.Domain\TutorProject.Domain.csproj", "{59632B75-CD38-4B28-8153-74CC8275F10D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Presenters", "src\TutorProject.Presenters\TutorProject.Presenters.csproj", "{52EAE0EA-7CED-48AF-99FE-68612C1D3714}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Web", "src\TutorProject.Web\TutorProject.Web.csproj", "{279E7A79-4F5A-4B1D-B490-ED8A36E4D61D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{20DD4ECC-FD58-4CF2-B208-C92ED83766E7}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
@@ -17,11 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		.env = .env
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3D1AB0D-9583-4F83-8243-B989DD1DF96B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Domain", "src\TutorProject.Domain\TutorProject.Domain.csproj", "{59632B75-CD38-4B28-8153-74CC8275F10D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Presenters", "src\TutorProject.Presenters\TutorProject.Presenters.csproj", "{52EAE0EA-7CED-48AF-99FE-68612C1D3714}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Web", "src\TutorProject.Web\TutorProject.Web.csproj", "{279E7A79-4F5A-4B1D-B490-ED8A36E4D61D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Contracts", "TutorProject.Contracts\TutorProject.Contracts.csproj", "{E59A093E-E605-4447-A4CE-68E177FC8B16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Application", "TutorProject.Application\TutorProject.Application.csproj", "{1DFB9F92-0878-46E6-8ED7-EEC5757E4109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Infrastructure", "TutorProject.Infrastructure\TutorProject.Infrastructure.csproj", "{9E531431-31B3-49EC-8671-1E2474BE0291}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Infrastructure.Postgres", "TutorProject.Infrastructure.Postgres\TutorProject.Infrastructure.Postgres.csproj", "{9E531431-31B3-49EC-8671-1E2474BE0291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

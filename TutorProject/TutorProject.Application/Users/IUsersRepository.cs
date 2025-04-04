@@ -1,9 +1,8 @@
 using CSharpFunctionalExtensions;
-using TutorProject.Domain.Shared;
 using TutorProject.Domain.Shared.Errors;
 using TutorProject.Domain.Users;
 
-namespace TutorProject.Application;
+namespace TutorProject.Application.Users;
 
 public interface IUsersRepository
 {

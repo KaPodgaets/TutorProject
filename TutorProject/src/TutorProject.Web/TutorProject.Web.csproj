@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\TutorProject.Application\TutorProject.Application.csproj"/>
     <ProjectReference Include="..\..\TutorProject.Contracts\TutorProject.Contracts.csproj"/>
-    <ProjectReference Include="..\..\TutorProject.Infrastructure\TutorProject.Infrastructure.csproj"/>
+    <ProjectReference Include="..\..\TutorProject.Infrastructure.Postgres\TutorProject.Infrastructure.Postgres.csproj" />
     <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj"/>
     <ProjectReference Include="..\TutorProject.Presenters\TutorProject.Presenters.csproj"/>
   </ItemGroup>
