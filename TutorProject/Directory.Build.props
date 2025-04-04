@@ -1,0 +1,52 @@
+<Project>
+  <PropertyGroup>
+    <!-- General settings -->
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+
+    <!-- Output directories -->
+    <!-- turn it off, because of bug with git and new folders -->
+    <BaseOutputPath>$(SolutionDir)artifacts\bin\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)artifacts\obj\</BaseIntermediateOutputPath>
+
+    <!-- Treat warnings as errors -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!-- Enable deterministic builds -->
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+    <!-- Enable Analizers -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnableStyleCopAnalizer>true</EnableStyleCopAnalizer>
+
+    <!-- Disable XML documentation output globally (optional) -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+    <!--
+    Make sure any documentation comments which are included in code get checked for syntax during the build, but do
+    not report warnings for missing comments.
+
+    CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
+    CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
+    -->
+    <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!-- Package management -->
+  <ItemGroup>
+    <!-- Common analyzer rules -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="3.5.1" />
+
+    <!-- package version control -->
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0"/>
+  </ItemGroup>
+</Project>

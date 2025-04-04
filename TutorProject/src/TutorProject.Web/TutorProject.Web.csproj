@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj"/>
+    <ProjectReference Include="..\TutorProject.Presenters\TutorProject.Presenters.csproj"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**"/>
+    <Compile Remove="obj\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="bin\**"/>
+    <EmbeddedResource Remove="obj\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="bin\**"/>
+    <Content Remove="obj\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="bin\**"/>
+    <None Remove="obj\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\appsettings.Development.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\appsettings.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\TutorProject.Web.deps.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\TutorProject.Web.runtimeconfig.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\TutorProject.Web.staticwebassets.endpoints.json"/>
+    <_ContentIncludedByDefault Remove="obj\Debug\net9.0\staticwebassets.build.endpoints.json"/>
+    <_ContentIncludedByDefault Remove="obj\Debug\net9.0\staticwebassets.build.json"/>
+    <_ContentIncludedByDefault Remove="obj\Debug\net9.0\TutorProject.Web.sourcelink.json"/>
+    <_ContentIncludedByDefault Remove="obj\project.assets.json"/>
+    <_ContentIncludedByDefault Remove="obj\project.packagespec.json"/>
+    <_ContentIncludedByDefault Remove="obj\TutorProject.Web.csproj.nuget.dgspec.json"/>
+  </ItemGroup>
+
+</Project>
