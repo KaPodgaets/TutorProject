@@ -38,7 +38,7 @@ public class UsersController : ApplicationController
         return Ok("result");
     }
 
-    [HttpPost("/login")]
+    [HttpPost("login")]
     public async Task<IActionResult> LogIn(string email, string password)
     {
         await Task.CompletedTask;
@@ -46,7 +46,7 @@ public class UsersController : ApplicationController
         return Ok("result");
     }
 
-    [HttpDelete("/logout")]
+    [HttpDelete("logout")]
     public async Task<IActionResult> LogOut([FromRoute] Guid userId)
     {
         await Task.CompletedTask;
