@@ -1,4 +1,5 @@
 using CSharpFunctionalExtensions;
+using TutorProject.Domain.Shared.Errors;
 
 namespace TutorProject.Domain.Shared.Abstractions;
 

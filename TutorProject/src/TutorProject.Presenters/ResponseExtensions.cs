@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TutorProject.Domain.Shared;
+using TutorProject.Domain.Shared.Errors;
+using TutorProject.Domain.Shared.HttpResponsing;
 
 namespace TutorProject.Presenters;
 
