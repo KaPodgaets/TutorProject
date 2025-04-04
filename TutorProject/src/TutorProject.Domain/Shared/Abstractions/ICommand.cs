@@ -1,3 +1,5 @@
 namespace TutorProject.Domain.Shared.Abstractions;
 
-public interface ICommand;
+public interface ICommand
+{
+}

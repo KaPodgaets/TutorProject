@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TutorProject.Application.Users;
+using TutorProject.Contracts.Users;
 
 namespace TutorProject.Presenters.Controllers;
 
@@ -15,11 +17,17 @@ public class UsersController : ApplicationController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create()
+    public async Task<IActionResult> Create(
+        [FromBody] NewUserContract user,
+        [FromServices] CreateUserHandler handler,
+        CancellationToken cancellationToken = default)
     {
+        var command = new CreateUserCommand(user.Email, user.Password);
+        var result = await handler.ExecuteAsync(command, cancellationToken);
+
         await Task.CompletedTask;
 
-        return Ok("result");
+        return Ok(result.Value);
     }
 
     [HttpPatch("{userId:guid}")]
@@ -39,11 +47,17 @@ public class UsersController : ApplicationController
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> LogIn(string email, string password)
+    public async Task<IActionResult> LogIn(
+        [FromBody] NewUserContract user,
+        [FromServices] CreateUserHandler handler,
+        CancellationToken cancellationToken = default)
     {
+        var command = new CreateUserCommand(user.Email, user.Password);
+        var result = await handler.ExecuteAsync(command, cancellationToken);
+
         await Task.CompletedTask;
 
-        return Ok("result");
+        return Ok(result.Value);
     }
 
     [HttpDelete("logout")]
