@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		Directory.Build.props = Directory.Build.props
 		.editorconfig = .editorconfig
 		..\.gitignore = ..\.gitignore
+		docker-compose.yml = docker-compose.yml
+		.env = .env
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TutorProject.Contracts", "TutorProject.Contracts\TutorProject.Contracts.csproj", "{E59A093E-E605-4447-A4CE-68E177FC8B16}"
