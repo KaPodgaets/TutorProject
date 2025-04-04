@@ -19,6 +19,8 @@ public static class Program
 
         var app = builder.Build();
 
+        app.UseExceptionCustomHandler();
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
