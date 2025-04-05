@@ -1,7 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
-using TutorProject.Application;
 using TutorProject.Application.Users;
-using TutorProject.Domain.Shared;
 using TutorProject.Domain.Shared.Errors;
 using TutorProject.Domain.Users;
 

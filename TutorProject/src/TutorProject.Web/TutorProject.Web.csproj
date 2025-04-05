@@ -8,6 +8,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
     <PackageReference Include="Scrutor"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
   </ItemGroup>
 
   <ItemGroup>
