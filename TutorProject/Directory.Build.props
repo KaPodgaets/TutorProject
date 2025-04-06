@@ -30,27 +30,4 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
   </PropertyGroup>
-
-  <!-- Package management -->
-  <ItemGroup>
-    <!-- Common analyzer rules -->
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="CSharpFunctionalExtensions" Version="3.5.1"/>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.3"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.3"/>
-  </ItemGroup>
-
-  <!-- VERSION CONTROL -->
-  <ItemGroup>
-
-    <!-- package version control -->
-    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.0"/>
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3"/>
-    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0"/>
-    <PackageVersion Include="Scrutor" Version="6.0.1"/>
-  </ItemGroup>
 </Project>

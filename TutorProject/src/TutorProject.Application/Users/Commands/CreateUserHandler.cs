@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
 using CSharpFunctionalExtensions;
 using TutorProject.Domain.Shared.Abstractions;
 using TutorProject.Domain.Shared.Errors;
 using TutorProject.Domain.Users;
 
-namespace TutorProject.Application.Users;
+namespace TutorProject.Application.Users.Commands;
 
 public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 {
@@ -36,7 +35,7 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
         var newUser = User.CreateUser(command.Email, command.Password).Value;
 
         // use repository + transaction
-        var result = await _usersRepository.Create(newUser);
+        var result = await _usersRepository.Create(newUser, cancellationToken);
         return result.IsFailure
             ? result
             : result.Value;

@@ -16,6 +16,11 @@ public static class Errors
             return Error.NotFound("record.not.found", $"{name ?? "record"} not found{forId}");
         }
 
+        public static Error NotFound(string? name = null)
+        {
+            return Error.NotFound("record.not.found", $"{name} not found");
+        }
+
         public static Error ValueIsRequired(string? name = null)
         {
             string label = name ?? string.Empty;

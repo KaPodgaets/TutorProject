@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TutorProject.Application.Users;
+using TutorProject.Application.Users.Commands;
 using TutorProject.Contracts.Users;
 
 namespace TutorProject.Presenters.Controllers;
@@ -25,12 +25,10 @@ public class UsersController : ApplicationController
         var command = new CreateUserCommand(user.Email, user.Password);
         var result = await handler.ExecuteAsync(command, cancellationToken);
 
-        if(result.IsFailure)
+        if (result.IsFailure)
         {
             return result.Error.ToResponse();
         }
-
-        await Task.CompletedTask;
 
         return Ok(result.Value);
     }

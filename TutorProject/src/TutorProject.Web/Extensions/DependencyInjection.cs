@@ -1,7 +1,6 @@
 using FluentValidation;
-using TutorProject.Application;
 using TutorProject.Domain.Shared.Abstractions;
-using TutorProject.Infrastructure;
+using TutorProject.Infrastructure.Postgres;
 
 namespace TutorProject.Web.Extensions;
 

@@ -1,8 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using TutorProject.Domain.Shared.Errors;
 
-namespace TutorProject.Application.Users;
+namespace TutorProject.Application.Users.Commands;
 
 public class CreateUserValidator : AbstractValidator<CreateUserCommand>
 {

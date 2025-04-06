@@ -1,8 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TutorProject.Application;
+using TutorProject.Application.Users;
 
-namespace TutorProject.Infrastructure;
+namespace TutorProject.Infrastructure.Postgres;
 
 public static class DependencyInjection
 {
@@ -11,6 +12,7 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<UsersDbContext>(_ => new UsersDbContext(configuration.GetConnectionString("Database")!));
         return services;
     }
 }
