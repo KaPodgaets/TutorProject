@@ -16,11 +16,8 @@ public static class WebApplicationExtensions
         {
             await app.ApplyMigrations();
 
-            // await app.Services.RunAutoSeeding();
-        }
+            await app.Services.RunAutoSeeding();
 
-        if (app.Environment.IsDevelopment())
-        {
             app.MapOpenApi();
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "TutorProject"));
         }
@@ -39,6 +36,17 @@ public static class WebApplicationExtensions
         foreach (var migrator in migrators)
         {
             await migrator.MigrateAsync();
+        }
+    }
+
+    private static async Task RunAutoSeeding(this IServiceProvider serviceProvider)
+    {
+        var scopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
+        using var scope = scopeFactory.CreateScope();
+        var seeders = scope.ServiceProvider.GetServices<IAutoSeeder>();
+        foreach (var seeder in seeders)
+        {
+            await seeder.SeedAsync();
         }
     }
 }
