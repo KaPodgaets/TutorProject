@@ -4,10 +4,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TutorProject.Application\TutorProject.Application.csproj" />
-    <ProjectReference Include="..\..\TutorProject.Contracts\TutorProject.Contracts.csproj" />
-    <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TutorProject.Application\TutorProject.Application.csproj" />
+    <ProjectReference Include="..\TutorProject.Contracts\TutorProject.Contracts.csproj" />
+    <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj" />
   </ItemGroup>
   
 </Project>

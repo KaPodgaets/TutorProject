@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using TutorProject.Application.Users;
 using TutorProject.Application.Users.Commands;
 using TutorProject.Contracts.Users;
 

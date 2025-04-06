@@ -1,5 +1,4 @@
 using FluentValidation;
-using TutorProject.Application;
 using TutorProject.Domain.Shared.Abstractions;
 using TutorProject.Infrastructure.Postgres;
 
