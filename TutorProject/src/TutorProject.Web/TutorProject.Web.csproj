@@ -12,10 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TutorProject.Application\TutorProject.Application.csproj" />
-    <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj"/>
-    <ProjectReference Include="..\TutorProject.Infrastructure.Postgres\TutorProject.Infrastructure.Postgres.csproj" />
-    <ProjectReference Include="..\TutorProject.Presenters\TutorProject.Presenters.csproj"/>
+    <ProjectReference Include="..\Core\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Users\Users.Presentation\Users.Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

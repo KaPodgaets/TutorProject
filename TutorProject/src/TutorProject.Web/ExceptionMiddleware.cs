@@ -1,6 +1,6 @@
 using System.Net;
-using TutorProject.Domain.Shared.Errors;
-using TutorProject.Domain.Shared.HttpResponsing;
+using Shared;
+using Shared.Errors;
 
 namespace TutorProject.Web;
 
