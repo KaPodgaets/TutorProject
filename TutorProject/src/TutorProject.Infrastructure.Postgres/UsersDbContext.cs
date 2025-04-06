@@ -20,9 +20,9 @@ public class UsersDbContext(string connectionString) : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(UsersDbContext).Assembly,
-            type => type.FullName?.Contains("Configurations.Write") ?? false);
+            type => type.FullName?.Contains("Users.Configurations") ?? false);
 
-        modelBuilder.HasDefaultSchema("applications");
+        modelBuilder.HasDefaultSchema("users");
     }
 
     private ILoggerFactory CreateLoggerFactory() =>

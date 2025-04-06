@@ -14,5 +14,9 @@
     <ProjectReference Include="..\TutorProject.Application\TutorProject.Application.csproj"/>
     <ProjectReference Include="..\TutorProject.Domain\TutorProject.Domain.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Migrations\Users\" />
+  </ItemGroup>
 
 </Project>

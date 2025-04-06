@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using TutorProject.Application.Users;
 using TutorProject.Domain.Shared.Errors;
 using TutorProject.Domain.Users;
@@ -7,16 +8,68 @@ namespace TutorProject.Infrastructure.Postgres;
 
 public class UsersRepository : IUsersRepository
 {
-    public async Task<Result<Guid, ErrorList>> Create(User newUser)
-    {
-        await Task.CompletedTask;
+    private readonly UsersDbContext _dbContext;
 
-        return newUser.Id;
+    public UsersRepository(UsersDbContext dbContext)
+    {
+        _dbContext = dbContext;
     }
 
-    public Task<Result<Guid, ErrorList>> Delete(User user) => throw new NotImplementedException();
+    public async Task<Result<Guid, ErrorList>> Create(User model, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _dbContext.Users.AddAsync(model, cancellationToken);
 
-    public Task<Result<User, ErrorList>> Update(User user) => throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception)
+        {
+            return Errors.General.Failure().ToErrorList();
+        }
 
-    public Task<Result<User, ErrorList>> GetById(Guid id) => throw new NotImplementedException();
+        return model.Id;
+    }
+
+    public async Task<Result<Guid, ErrorList>> Delete(User model, CancellationToken cancellationToken)
+    {
+        _dbContext.Users.Remove(model);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+        return model.Id;
+    }
+
+    public async Task<Result<User, ErrorList>> Update(User model, CancellationToken cancellationToken)
+    {
+        _dbContext.Users.Attach(model);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+        return model;
+    }
+
+    public async Task<Result<User, ErrorList>> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await _dbContext.Users
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+        if (model == null)
+        {
+            return Errors.General.NotFound(id).ToErrorList();
+        }
+
+        return model;
+    }
+
+    public async Task<Result<User, ErrorList>> GetByEmail(
+        string email,
+        CancellationToken cancellationToken = default)
+    {
+        var model = await _dbContext.Users
+            .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
+
+        if (model == null)
+        {
+            return Errors.General.NotFound(email).ToErrorList();
+        }
+
+        return model;
+    }
 }

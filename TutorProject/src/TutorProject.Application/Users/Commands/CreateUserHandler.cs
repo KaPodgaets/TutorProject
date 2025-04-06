@@ -35,7 +35,7 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
         var newUser = User.CreateUser(command.Email, command.Password).Value;
 
         // use repository + transaction
-        var result = await _usersRepository.Create(newUser);
+        var result = await _usersRepository.Create(newUser, cancellationToken);
         return result.IsFailure
             ? result
             : result.Value;
