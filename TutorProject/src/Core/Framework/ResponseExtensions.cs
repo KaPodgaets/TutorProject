@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using Shared.Errors;
-using Shared.HttpResponsing;
 
-namespace Users.Presentation;
+namespace Framework;
 
 public static class ResponseExtensions
 {

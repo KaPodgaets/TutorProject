@@ -1,6 +1,6 @@
 using Shared.ValueObjects;
 
-namespace Users.Domain.Tutors;
+namespace Tutors.Domain;
 
 public class Tutor
 {

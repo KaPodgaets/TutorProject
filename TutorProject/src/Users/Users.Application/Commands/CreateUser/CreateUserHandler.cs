@@ -1,9 +1,10 @@
 using CSharpFunctionalExtensions;
 using Shared.Abstractions;
 using Shared.Errors;
-using Users.Domain.Users;
+using TutorProject.Application.Database;
+using Users.Domain;
 
-namespace TutorProject.Application.Users.Commands;
+namespace TutorProject.Application.Commands.CreateUser;
 
 public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 {

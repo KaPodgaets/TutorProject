@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
-namespace Users.Presentation.Controllers;
+namespace Students.Presentation;
 
 [ApiController]
 [Route("[controller]")]

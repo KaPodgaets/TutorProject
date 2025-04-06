@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TutorProject.Application.Users;
-using TutorProject.Application.Users.Commands;
+using TutorProject.Application.Commands.CreateUser;
 
 namespace TutorProject.Application;
 

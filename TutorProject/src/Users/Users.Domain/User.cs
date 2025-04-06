@@ -1,7 +1,7 @@
 using CSharpFunctionalExtensions;
 using Shared.Errors;
 
-namespace Users.Domain.Users;
+namespace Users.Domain;
 
 public class User
 {

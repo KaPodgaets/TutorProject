@@ -1,4 +1,4 @@
-namespace Users.Domain.Users;
+namespace Users.Domain;
 
 public class Role
 {

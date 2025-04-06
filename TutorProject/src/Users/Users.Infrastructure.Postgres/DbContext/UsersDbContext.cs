@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Users.Domain.Users;
+using Users.Domain;
 
-namespace Users.Infrastructure.Postgres;
+namespace Users.Infrastructure.Postgres.DbContext;
 
-public class UsersDbContext(string connectionString) : DbContext
+public class UsersDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<User> Users => Set<User>();
 

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Shared.Errors;
 
-namespace Shared.HttpResponsing;
+namespace Shared;
 
 public record Envelope
 {

@@ -1,10 +1,11 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.Errors;
-using TutorProject.Application.Users;
-using Users.Domain.Users;
+using TutorProject.Application.Database;
+using Users.Domain;
+using Users.Infrastructure.Postgres.DbContext;
 
-namespace Users.Infrastructure.Postgres;
+namespace Users.Infrastructure.Postgres.Repositories;
 
 public class UsersRepository : IUsersRepository
 {

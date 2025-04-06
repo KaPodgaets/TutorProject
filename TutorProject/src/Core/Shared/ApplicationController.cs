@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Shared.HttpResponsing;
 
-namespace Users.Presentation.Controllers;
+namespace Shared;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,7 +1,7 @@
 using FluentValidation;
 using Shared.Errors;
 
-namespace TutorProject.Application.Users.Commands;
+namespace TutorProject.Application.Commands.CreateUser;
 
 public class CreateUserValidator : AbstractValidator<CreateUserCommand>
 {

@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TutorProject.Application;
-using TutorProject.Application.Users;
+using TutorProject.Application.Database;
+using Users.Infrastructure.Postgres.DbContext;
+using Users.Infrastructure.Postgres.Repositories;
 
 namespace Users.Infrastructure.Postgres;
 

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Users.Domain.Users;
+using Users.Domain;
 
-namespace Users.Infrastructure.Postgres.Users.Configurations;
+namespace Users.Infrastructure.Postgres.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {
