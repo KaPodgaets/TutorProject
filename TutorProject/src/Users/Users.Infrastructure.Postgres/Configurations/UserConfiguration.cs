@@ -18,7 +18,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Id)
             .HasColumnName("id");
 
-        builder.Property(x => x.Password)
+        builder.Property(x => x.PasswordHash)
             .HasColumnName("password");
     }
 }

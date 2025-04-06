@@ -20,7 +20,7 @@ public class UsersDbContext(string connectionString) : Microsoft.EntityFramework
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(UsersDbContext).Assembly,
-            type => type.FullName?.Contains("Users.Configurations") ?? false);
+            type => type.FullName?.Contains("Configurations") ?? false);
 
         modelBuilder.HasDefaultSchema("users");
     }

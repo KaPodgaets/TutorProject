@@ -25,17 +25,8 @@ public static class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapOpenApi();
-            app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "TutorProject"));
-        }
-
-        app.MapControllers();
-
         await app.Configure();
 
-        app.Run();
+        await app.RunAsync();
     }
 }

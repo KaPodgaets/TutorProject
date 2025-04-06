@@ -13,8 +13,13 @@ public static class WebApplicationExtensions
         //     await app.Services.RunMigrations();
         //     await app.Services.RunAutoSeeding();
         // }
-        app.UseSwaggerUI();
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapOpenApi();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "TutorProject"));
+        }
 
+        // Configure the HTTP request pipeline.
         app.UseExceptionMiddleware();
         app.UseSerilogRequestLogging();
 
