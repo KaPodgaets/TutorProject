@@ -25,7 +25,7 @@ public static class Program
 
         var app = builder.Build();
 
-        await app.Configure();
+        await app.ConfigureApplication();
 
         await app.RunAsync();
     }
