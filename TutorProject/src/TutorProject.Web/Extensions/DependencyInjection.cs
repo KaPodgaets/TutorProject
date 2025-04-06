@@ -1,6 +1,6 @@
 using FluentValidation;
-using TutorProject.Domain.Shared.Abstractions;
-using TutorProject.Infrastructure.Postgres;
+using Shared.Abstractions;
+using Users.Presentation;
 
 namespace TutorProject.Web.Extensions;
 
@@ -11,11 +11,11 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddApplicationLayer(configuration);
-        services.AddInfrastructureLayer(configuration);
+        services.AddUsersModule(configuration);
         return services;
     }
 
-    public static IServiceCollection AddApplicationLayer(
+    private static IServiceCollection AddApplicationLayer(
         this IServiceCollection services,
         IConfiguration configuration)
     {
