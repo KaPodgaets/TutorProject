@@ -6,7 +6,21 @@ namespace TutorProject.Web.Extensions;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDependencyInjection(
+    public static IServiceCollection AddProgramDependencies(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.AddControllers();
+        services.AddOpenApi();
+
+        services.AddLogging();
+
+        services.AddModules(configuration);
+
+        return services;
+    }
+
+    private static IServiceCollection AddModules(
         this IServiceCollection services,
         IConfiguration configuration)
     {
@@ -39,6 +53,12 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssemblies(assemblies);
 
+        return services;
+    }
+
+    private static IServiceCollection AddLogging(this IServiceCollection services)
+    {
+        services.AddHttpLogging(o => { o.CombineLogs = true; });
         return services;
     }
 }
