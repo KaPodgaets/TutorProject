@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TutorProject.Application.Users;
+using TutorProject.Contracts.Users;
 
 namespace TutorProject.Presenters.Controllers;
 
@@ -15,11 +17,22 @@ public class UsersController : ApplicationController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create()
+    public async Task<IActionResult> Create(
+        [FromBody] NewUserDto user,
+        [FromServices] CreateUserHandler handler,
+        CancellationToken cancellationToken = default)
     {
+        var command = new CreateUserCommand(user.Email, user.Password);
+        var result = await handler.ExecuteAsync(command, cancellationToken);
+
+        if(result.IsFailure)
+        {
+            return result.Error.ToResponse();
+        }
+
         await Task.CompletedTask;
 
-        return Ok("result");
+        return Ok(result.Value);
     }
 
     [HttpPatch("{userId:guid}")]
@@ -38,15 +51,21 @@ public class UsersController : ApplicationController
         return Ok("result");
     }
 
-    [HttpPost("/login")]
-    public async Task<IActionResult> LogIn(string email, string password)
+    [HttpPost("login")]
+    public async Task<IActionResult> LogIn(
+        [FromBody] NewUserDto user,
+        [FromServices] CreateUserHandler handler,
+        CancellationToken cancellationToken = default)
     {
+        var command = new CreateUserCommand(user.Email, user.Password);
+        var result = await handler.ExecuteAsync(command, cancellationToken);
+
         await Task.CompletedTask;
 
-        return Ok("result");
+        return Ok(result.Value);
     }
 
-    [HttpDelete("/logout")]
+    [HttpDelete("logout")]
     public async Task<IActionResult> LogOut([FromRoute] Guid userId)
     {
         await Task.CompletedTask;

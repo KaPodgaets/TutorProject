@@ -1,4 +1,4 @@
-namespace TutorProject.Domain.Shared;
+namespace TutorProject.Domain.Shared.Errors;
 
 public record Error
 {

@@ -7,4 +7,4 @@
       <ProjectReference Include="..\src\TutorProject.Domain\TutorProject.Domain.csproj" />
     </ItemGroup>
 
-</Project>
+ </Project>

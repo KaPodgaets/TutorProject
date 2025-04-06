@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace TutorProject.Domain.Shared;
+namespace TutorProject.Domain.Shared.Errors;
 
 public class ErrorList : IEnumerable<Error>
 {

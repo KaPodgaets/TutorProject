@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Core;
+using TutorProject.Web.Extensions;
 
 namespace TutorProject.Web;
 
@@ -13,6 +14,8 @@ public static class Program
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
+
+        builder.Services.AddDependencyInjection(builder.Configuration);
 
         var app = builder.Build();
 

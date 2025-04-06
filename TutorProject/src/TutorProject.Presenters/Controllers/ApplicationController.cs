@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TutorProject.Domain.Shared;
+using TutorProject.Domain.Shared.HttpResponsing;
 
 namespace TutorProject.Presenters.Controllers;
 

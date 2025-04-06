@@ -204,16 +204,21 @@ tab_width = 4
 
 dotnet_diagnostic.SA0001.severity = none
 dotnet_diagnostic.SA1000.severity = none
+dotnet_diagnostic.SA1009.severity = none
 dotnet_diagnostic.SA1010.severity = none
 dotnet_diagnostic.SA1101.severity = none
+dotnet_diagnostic.SA1106.severity = none
 dotnet_diagnostic.SA1200.severity = none
 dotnet_diagnostic.SA1308.severity = none
 dotnet_diagnostic.SA1309.severity = none
 dotnet_diagnostic.SA1310.severity = none
+dotnet_diagnostic.SA1313.severity = none
+dotnet_diagnostic.SA1503.severity = none
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1602.severity = none
 dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.S1118.severity = none
+dotnet_diagnostic.AD0001.severity = none
 
 # Определяем символы для публичных констант
 dotnet_naming_symbols.public_constants.applicable_kinds = field
