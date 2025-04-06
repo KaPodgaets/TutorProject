@@ -19,6 +19,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("id");
 
         builder.Property(x => x.Password)
-            .HasColumnName("email");
+            .HasColumnName("password");
     }
 }
