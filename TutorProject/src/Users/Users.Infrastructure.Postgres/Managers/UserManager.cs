@@ -13,12 +13,10 @@ namespace Users.Infrastructure.Postgres.Managers;
 public class UserManager : IUserManager
 {
     // private readonly IUserRepository _userRepository;
-    private readonly ISessionManager _sessionManager;
     private readonly IUsersRepository _userRepository;
 
-    public UserManager(ISessionManager sessionManager, IUsersRepository userRepository)
+    public UserManager(IUsersRepository userRepository)
     {
-        _sessionManager = sessionManager;
         _userRepository = userRepository;
     }
 
@@ -49,7 +47,6 @@ public class UserManager : IUserManager
         if (!VerifyPassword(user.PasswordHash, user.PasswordSalt, password))
             return Errors.Auth.InvalidCredentials().ToErrorList();
 
-        await _sessionManager.StartSessionAsync(user.Id, cancellationToken);
         return user.Id;
     }
 
