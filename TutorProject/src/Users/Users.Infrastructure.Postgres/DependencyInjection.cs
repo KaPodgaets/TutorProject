@@ -46,7 +46,7 @@ public static class DependencyInjection
 
     private static IServiceCollection AddUsersSeeding(this IServiceCollection services)
     {
-        services.AddScoped<UsersSeeder>();
+        services.AddScoped<IAutoSeeder, UsersSeeder>();
         services.AddScoped<UsersSeedingService>();
 
         return services;
