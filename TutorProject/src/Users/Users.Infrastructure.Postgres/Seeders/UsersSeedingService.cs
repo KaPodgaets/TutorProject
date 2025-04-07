@@ -62,10 +62,6 @@ public class UsersSeedingService
         if (registerNewUserResult.IsFailure)
             throw new Exception($"AutoSeeder: Could not create admin user: {registerNewUserResult.Error}");
 
-        var savingUserResult = await _repository.Create(registerNewUserResult.Value, stoppingToken);
-        if (savingUserResult.IsFailure)
-            throw new Exception($"AutoSeeder: Could not save admin user: {savingUserResult.Error}");
-
         _logger.LogInformation("AutoSeeder: Admin user were created successfully");
     }
 }
