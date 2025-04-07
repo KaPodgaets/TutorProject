@@ -13,20 +13,14 @@ public static class ResponseExtensions
 
         var envelope = Envelope.Error(error.ToErrorList());
 
-        return new ObjectResult(envelope)
-        {
-            StatusCode = statusCode,
-        };
+        return new ObjectResult(envelope) { StatusCode = statusCode, };
     }
 
     public static ActionResult ToResponse(this ErrorList errors)
     {
         if (!errors.Any())
         {
-            return new ObjectResult(Envelope.Error(errors))
-            {
-                StatusCode = StatusCodes.Status500InternalServerError,
-            };
+            return new ObjectResult(Envelope.Error(errors)) { StatusCode = StatusCodes.Status500InternalServerError, };
         }
 
         var distinctErrorTypes = errors
@@ -40,10 +34,7 @@ public static class ResponseExtensions
 
         var envelope = Envelope.Error(errors);
 
-        return new ObjectResult(envelope)
-        {
-            StatusCode = statusCode,
-        };
+        return new ObjectResult(envelope) { StatusCode = statusCode, };
     }
 
     private static int GetStatusCodeForErrorType(ErrorType errorType) =>

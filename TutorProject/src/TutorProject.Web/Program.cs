@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Core;
 using Serilog;
 using TutorProject.Web.Extensions;
 
@@ -8,6 +7,8 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
+        DotNetEnv.Env.Load();
+
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Configuration
@@ -25,7 +26,7 @@ public static class Program
 
         var app = builder.Build();
 
-        await app.Configure();
+        await app.ConfigureApplication();
 
         await app.RunAsync();
     }
