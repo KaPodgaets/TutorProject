@@ -44,7 +44,7 @@ public class UserManager : IUserManager
             return Errors.Auth.InvalidCredentials().ToErrorList();
         var user = getUserResult.Value;
 
-        if (!VerifyPassword(user.PasswordHash, user.PasswordSalt, password))
+        if (VerifyPassword(user.PasswordHash, user.PasswordSalt, password) is false)
             return Errors.Auth.InvalidCredentials().ToErrorList();
 
         return user.Id;

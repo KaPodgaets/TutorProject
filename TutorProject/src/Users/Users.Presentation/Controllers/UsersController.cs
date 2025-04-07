@@ -53,15 +53,14 @@ public class UsersController : ApplicationController
 
     [HttpPost("login")]
     public async Task<IActionResult> LogIn(
-        [FromBody] NewUserDto user,
+        [FromBody] CredentialsDto loginCredentials,
         [FromServices] CreateUserHandler handler,
         CancellationToken cancellationToken = default)
     {
-        var command = new CreateUserCommand(user.Email, user.Password);
+        var command = new CreateUserCommand(loginCredentials.Email, loginCredentials.Password);
         var result = await handler.ExecuteAsync(command, cancellationToken);
 
-        await Task.CompletedTask;
-
+        // controller should return access token and refresh token
         return Ok(result.Value);
     }
 
