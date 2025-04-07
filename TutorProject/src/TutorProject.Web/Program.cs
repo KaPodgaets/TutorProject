@@ -1,35 +1,32 @@
 using Microsoft.AspNetCore.Mvc.Core;
+using Serilog;
 using TutorProject.Web.Extensions;
 
 namespace TutorProject.Web;
 
 public static class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-        builder.Services.AddControllers();
+        builder.Configuration
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile(
+                $"appsettings.{builder.Environment.EnvironmentName}.json",
+                optional: true,
+                reloadOnChange: true);
 
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-        builder.Services.AddOpenApi();
+        builder.Host.UseSerilog(
+            (context, loggerConfig) =>
+                loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-        builder.Services.AddDependencyInjection(builder.Configuration);
+        builder.Services.AddProgramDependencies(builder.Configuration);
 
         var app = builder.Build();
 
-        app.UseExceptionCustomHandler();
+        await app.Configure();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapOpenApi();
-            app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "TutorProject"));
-        }
-
-        app.MapControllers();
-
-        app.Run();
+        await app.RunAsync();
     }
 }

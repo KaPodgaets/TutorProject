@@ -1,4 +1,5 @@
 using CSharpFunctionalExtensions;
+using Microsoft.Extensions.Logging;
 using Shared.Abstractions;
 using Shared.Errors;
 using TutorProject.Application.Database;
@@ -10,13 +11,16 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 {
     private readonly IUsersRepository _usersRepository;
     private readonly CreateUserValidator _validator;
+    private readonly ILogger<CreateUserHandler> _logger;
 
     public CreateUserHandler(
         IUsersRepository usersRepository,
-        CreateUserValidator validator)
+        CreateUserValidator validator,
+        ILogger<CreateUserHandler> logger)
     {
         _usersRepository = usersRepository;
         _validator = validator;
+        _logger = logger;
     }
 
     public async Task<Result<Guid, ErrorList>> ExecuteAsync(
@@ -37,8 +41,12 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 
         // use repository + transaction
         var result = await _usersRepository.Create(newUser, cancellationToken);
-        return result.IsFailure
-            ? result
-            : result.Value;
+
+        if (result.IsFailure)
+            return result;
+
+        _logger.LogInformation("User {UserId} created", result.Value);
+
+        return result.Value;
     }
 }

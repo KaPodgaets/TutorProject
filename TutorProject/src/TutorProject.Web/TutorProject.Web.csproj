@@ -9,6 +9,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
     <PackageReference Include="Scrutor"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Sinks.Seq"/>
   </ItemGroup>
 
   <ItemGroup>
