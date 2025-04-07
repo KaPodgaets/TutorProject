@@ -2,9 +2,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Abstractions;
 using TutorProject.Application;
+using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
 using Users.Infrastructure.Postgres.DbContext;
+using Users.Infrastructure.Postgres.Managers;
 using Users.Infrastructure.Postgres.Migrator;
+using Users.Infrastructure.Postgres.Options;
 using Users.Infrastructure.Postgres.Repositories;
 using Users.Infrastructure.Postgres.Seeders;
 
@@ -18,11 +21,18 @@ public static class DependencyInjection
     {
         services.AddOptions()
             .AddDatabase()
-            .AddUsersSeeding();
+            .AddUsersSeeding()
+            .AddIdentityManagers();
 
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<UsersDbContext>(_ => new UsersDbContext(configuration.GetConnectionString("Database")!));
 
+        return services;
+    }
+
+    private static IServiceCollection AddIdentityManagers(this IServiceCollection services)
+    {
+        services.AddScoped<IUserManager, UserManager>();
         return services;
     }
 
@@ -34,6 +44,7 @@ public static class DependencyInjection
                 options.Email = Environment.GetEnvironmentVariable("ADMIN_USER_EMAIL");
                 options.Password = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
             });
+
         return services;
     }
 

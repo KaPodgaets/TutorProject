@@ -18,7 +18,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 id => id.Value,
                 value => UserId.Create(value))
             .IsRequired()
-            .HasColumnType("id");
+            .HasColumnName("id");
 
         builder.Property(x => x.Email)
             .HasConversion(
@@ -29,5 +29,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.PasswordHash)
             .HasColumnName("password");
+        builder.Property(x => x.PasswordSalt)
+            .HasColumnName("security_stamp");
     }
 }

@@ -4,6 +4,7 @@ using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
+using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
 using Users.Domain;
 
@@ -13,16 +14,19 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 {
     private readonly IUsersRepository _usersRepository;
     private readonly CreateUserValidator _validator;
+    private readonly IUserManager _userManager;
     private readonly ILogger<CreateUserHandler> _logger;
 
     public CreateUserHandler(
         IUsersRepository usersRepository,
         CreateUserValidator validator,
-        ILogger<CreateUserHandler> logger)
+        ILogger<CreateUserHandler> logger,
+        IUserManager userManager)
     {
         _usersRepository = usersRepository;
         _validator = validator;
         _logger = logger;
+        _userManager = userManager;
     }
 
     public async Task<Result<Guid, ErrorList>> ExecuteAsync(
@@ -40,16 +44,14 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 
         // create new domain entity
         var email = Email.Create(command.Email).Value;
-        var newUser = User.CreateUser(email, command.Password).Value;
+        var password = Password.Create(command.Password).Value;
 
-        // use repository + transaction
-        var result = await _usersRepository.Create(newUser, cancellationToken);
+        var registerNewUserResult = await _userManager.RegisterNewUserAsync(email, password, cancellationToken);
+        if (registerNewUserResult.IsFailure)
+            return registerNewUserResult.Error;
 
-        if (result.IsFailure)
-            return result;
+        _logger.LogInformation("User {UserId} created", registerNewUserResult.Value.Id.Value);
 
-        _logger.LogInformation("User {UserId} created", result.Value);
-
-        return result.Value;
+        return registerNewUserResult.Value.Id.Value;
     }
 }

@@ -17,7 +17,7 @@ public class UsersRepository : IUsersRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Result<Guid, ErrorList>> Create(User model, CancellationToken cancellationToken)
+    public async Task<Result<User, ErrorList>> Create(User model, CancellationToken cancellationToken)
     {
         try
         {
@@ -30,7 +30,7 @@ public class UsersRepository : IUsersRepository
             return Errors.General.Failure().ToErrorList();
         }
 
-        return model.Id.Value;
+        return model;
     }
 
     public async Task<Result<Guid, ErrorList>> Delete(User model, CancellationToken cancellationToken)

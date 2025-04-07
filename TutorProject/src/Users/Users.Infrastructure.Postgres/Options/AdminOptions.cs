@@ -1,4 +1,4 @@
-namespace Users.Infrastructure.Postgres;
+namespace Users.Infrastructure.Postgres.Options;
 
 public class AdminOptions
 {

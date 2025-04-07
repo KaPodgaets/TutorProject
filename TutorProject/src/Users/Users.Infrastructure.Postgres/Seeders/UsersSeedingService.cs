@@ -1,8 +1,10 @@
+using System.Security.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shared.ValueObjects;
+using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
-using Users.Domain;
+using Users.Infrastructure.Postgres.Options;
 
 namespace Users.Infrastructure.Postgres.Seeders;
 
@@ -11,15 +13,18 @@ public class UsersSeedingService
     private readonly AdminOptions _adminOptions;
     private readonly IUsersRepository _repository;
     private readonly ILogger<UsersSeedingService> _logger;
+    private readonly IUserManager _userManager;
 
     public UsersSeedingService(
         IOptions<AdminOptions> adminOptions,
         IUsersRepository repository,
-        ILogger<UsersSeedingService> logger)
+        ILogger<UsersSeedingService> logger,
+        IUserManager userManager)
     {
         _adminOptions = adminOptions.Value;
         _repository = repository;
         _logger = logger;
+        _userManager = userManager;
     }
 
     public async Task SeedAsync(CancellationToken stoppingToken = default)
@@ -38,6 +43,9 @@ public class UsersSeedingService
             throw new ArgumentNullException(nameof(_adminOptions.Password));
 
         var email = Email.Create(_adminOptions.Email).Value;
+        var creatingPasswordResult = Password.Create(_adminOptions.Password);
+        if (creatingPasswordResult.IsFailure)
+            throw new AuthenticationException("Invalid email or password while seeding");
 
         var existingAdminResult = _repository.GetByEmail(email, stoppingToken).Result;
         if (existingAdminResult.IsSuccess)
@@ -46,11 +54,15 @@ public class UsersSeedingService
             return;
         }
 
-        var creatingUserResult = User.CreateUser(email, _adminOptions.Password);
-        if (creatingUserResult.IsFailure)
-            throw new Exception($"AutoSeeder: Could not create admin user: {creatingUserResult.Error}");
+        var registerNewUserResult = await _userManager.RegisterNewUserAsync(
+            email,
+            creatingPasswordResult.Value,
+            stoppingToken);
 
-        var savingUserResult = await _repository.Create(creatingUserResult.Value, stoppingToken);
+        if (registerNewUserResult.IsFailure)
+            throw new Exception($"AutoSeeder: Could not create admin user: {registerNewUserResult.Error}");
+
+        var savingUserResult = await _repository.Create(registerNewUserResult.Value, stoppingToken);
         if (savingUserResult.IsFailure)
             throw new Exception($"AutoSeeder: Could not save admin user: {savingUserResult.Error}");
 
