@@ -7,7 +7,7 @@ namespace Users.Domain;
 
 public class User
 {
-    private User(Guid id, Email email, string passwordHash)
+    private User(UserId id, Email email, string passwordHash)
     {
         Id = id;
         Email = email;
