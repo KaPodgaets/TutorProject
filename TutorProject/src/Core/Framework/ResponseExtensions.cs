@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
-using Shared.Errors;
+using Shared.ResultPattern;
 
 namespace Framework;
 

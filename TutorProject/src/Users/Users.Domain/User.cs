@@ -1,32 +1,29 @@
 using CSharpFunctionalExtensions;
-using Shared.Errors;
+using Shared.ResultPattern;
+using Shared.ValueObjects;
+using Users.Domain.ValueObjects;
 
 namespace Users.Domain;
 
 public class User
 {
-    private User(Guid id, string email, string passwordHash)
+    private User(Guid id, Email email, string passwordHash)
     {
         Id = id;
         Email = email;
         PasswordHash = passwordHash;
     }
 
-    public Guid Id { get; set; }
+    public UserId Id { get; set; }
 
-    public string Email { get; set; }
+    public Email Email { get; set; }
 
     public string PasswordHash { get; set; }
 
-    public List<Role> Roles { get; private set; } = new();
+    public List<Role> Roles { get; private set; } = [];
 
-    public static Result<User, ErrorList> CreateUser(string email, string password)
+    public static Result<User, ErrorList> CreateUser(Email email, string password)
     {
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            return Errors.General.ValueIsInvalid(nameof(email)).ToErrorList();
-        }
-
         if (string.IsNullOrWhiteSpace(password))
         {
             return Errors.General.ValueIsInvalid(nameof(password)).ToErrorList();
@@ -35,7 +32,7 @@ public class User
         return new User(Guid.NewGuid(), email, password);
     }
 
-    public Result<Guid, ErrorList> ChangePassword(string newPasswordHash)
+    public Result<UserId, ErrorList> ChangePassword(string newPasswordHash)
     {
         if (string.IsNullOrWhiteSpace(newPasswordHash))
             return Errors.General.ValueIsInvalid(nameof(newPasswordHash)).ToErrorList();
@@ -44,11 +41,8 @@ public class User
         return Id;
     }
 
-    public Result<Guid, ErrorList> ChangeEmail(string newEmail)
+    public Result<UserId, ErrorList> ChangeEmail(Email newEmail)
     {
-        if (string.IsNullOrWhiteSpace(newEmail))
-            return Errors.General.ValueIsInvalid(nameof(newEmail)).ToErrorList();
-
         Email = newEmail;
         return Id;
     }

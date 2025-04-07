@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
-using Shared.Errors;
+using Shared.ResultPattern;
+using Shared.ValueObjects;
 using TutorProject.Application.Database;
 using Users.Domain;
 using Users.Infrastructure.Postgres.DbContext;
@@ -29,14 +30,14 @@ public class UsersRepository : IUsersRepository
             return Errors.General.Failure().ToErrorList();
         }
 
-        return model.Id;
+        return model.Id.Value;
     }
 
     public async Task<Result<Guid, ErrorList>> Delete(User model, CancellationToken cancellationToken)
     {
         _dbContext.Users.Remove(model);
         await _dbContext.SaveChangesAsync(cancellationToken);
-        return model.Id;
+        return model.Id.Value;
     }
 
     public async Task<Result<User, ErrorList>> Update(User model, CancellationToken cancellationToken)
@@ -60,7 +61,7 @@ public class UsersRepository : IUsersRepository
     }
 
     public async Task<Result<User, ErrorList>> GetByEmail(
-        string email,
+        Email email,
         CancellationToken cancellationToken = default)
     {
         var model = await _dbContext.Users
@@ -68,7 +69,7 @@ public class UsersRepository : IUsersRepository
 
         if (model == null)
         {
-            return Errors.General.NotFound(email).ToErrorList();
+            return Errors.General.NotFound(email.Value).ToErrorList();
         }
 
         return model;

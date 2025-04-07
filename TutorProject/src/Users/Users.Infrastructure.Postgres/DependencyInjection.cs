@@ -6,6 +6,7 @@ using TutorProject.Application.Database;
 using Users.Infrastructure.Postgres.DbContext;
 using Users.Infrastructure.Postgres.Migrator;
 using Users.Infrastructure.Postgres.Repositories;
+using Users.Infrastructure.Postgres.Seeders;
 
 namespace Users.Infrastructure.Postgres;
 

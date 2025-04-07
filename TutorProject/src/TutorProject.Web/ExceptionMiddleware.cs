@@ -1,6 +1,6 @@
 using System.Net;
 using Shared;
-using Shared.Errors;
+using Shared.ResultPattern;
 
 namespace TutorProject.Web;
 

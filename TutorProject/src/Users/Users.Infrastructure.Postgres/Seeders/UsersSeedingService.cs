@@ -1,9 +1,10 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shared.ValueObjects;
 using TutorProject.Application.Database;
 using Users.Domain;
 
-namespace Users.Infrastructure.Postgres;
+namespace Users.Infrastructure.Postgres.Seeders;
 
 public class UsersSeedingService
 {
@@ -36,14 +37,16 @@ public class UsersSeedingService
         if (string.IsNullOrWhiteSpace(_adminOptions.Password))
             throw new ArgumentNullException(nameof(_adminOptions.Password));
 
-        var existingAdminResult = _repository.GetByEmail(_adminOptions.Email, stoppingToken).Result;
+        var email = Email.Create(_adminOptions.Email).Value;
+
+        var existingAdminResult = _repository.GetByEmail(email, stoppingToken).Result;
         if (existingAdminResult.IsSuccess)
         {
             _logger.LogInformation("AutoSeeder: No need to seed admin user");
             return;
         }
 
-        var creatingUserResult = User.CreateUser(_adminOptions.Email, _adminOptions.Password);
+        var creatingUserResult = User.CreateUser(email, _adminOptions.Password);
         if (creatingUserResult.IsFailure)
             throw new Exception($"AutoSeeder: Could not create admin user: {creatingUserResult.Error}");
 

@@ -1,7 +1,9 @@
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 using Shared.Abstractions;
-using Shared.Errors;
+using Shared.ResultPattern;
+using Shared.Validation;
+using Shared.ValueObjects;
 using TutorProject.Application.Database;
 using Users.Domain;
 
@@ -37,7 +39,8 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
         // business logic validation
 
         // create new domain entity
-        var newUser = User.CreateUser(command.Email, command.Password).Value;
+        var email = Email.Create(command.Email).Value;
+        var newUser = User.CreateUser(email, command.Password).Value;
 
         // use repository + transaction
         var result = await _usersRepository.Create(newUser, cancellationToken);

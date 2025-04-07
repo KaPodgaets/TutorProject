@@ -1,4 +1,4 @@
-namespace Shared.Errors;
+namespace Shared.ResultPattern;
 
 public record Error
 {
