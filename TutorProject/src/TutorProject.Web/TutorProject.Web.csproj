@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
+    <PackageReference Include="Scrutor"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Sinks.Seq"/>
+    <PackageReference Include="DotNetEnv"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Shared\Shared.csproj" />
+    <ProjectReference Include="..\Users\Users.Presentation\Users.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\appsettings.Development.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\appsettings.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\TutorProject.Web.deps.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\TutorProject.Web.runtimeconfig.json"/>
+    <_ContentIncludedByDefault Remove="bin\Debug\net9.0\TutorProject.Web.staticwebassets.endpoints.json"/>
+    <_ContentIncludedByDefault Remove="obj\Debug\net9.0\staticwebassets.build.endpoints.json"/>
+    <_ContentIncludedByDefault Remove="obj\Debug\net9.0\staticwebassets.build.json"/>
+    <_ContentIncludedByDefault Remove="obj\Debug\net9.0\TutorProject.Web.sourcelink.json"/>
+    <_ContentIncludedByDefault Remove="obj\project.assets.json"/>
+    <_ContentIncludedByDefault Remove="obj\project.packagespec.json"/>
+    <_ContentIncludedByDefault Remove="obj\TutorProject.Web.csproj.nuget.dgspec.json"/>
+  </ItemGroup>
+
+</Project>
