@@ -1,3 +1,4 @@
+using Framework.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 
@@ -15,6 +16,7 @@ public class StudentsController : ApplicationController
         return Ok("result");
     }
 
+    [Permission(Permissions.Students.CREATE)]
     [HttpPost]
     public async Task<IActionResult> Create()
     {

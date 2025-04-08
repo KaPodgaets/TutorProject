@@ -1,7 +1,8 @@
 using CSharpFunctionalExtensions;
 using FluentValidation;
+using Shared.ResultPattern;
 
-namespace Shared.Errors;
+namespace Shared.Validation;
 
 public static class CustomValidators
 {

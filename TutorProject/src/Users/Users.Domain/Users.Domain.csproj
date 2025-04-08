@@ -11,8 +11,4 @@
       <ProjectReference Include="..\..\Core\Shared\Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ValueObjects\" />
-    </ItemGroup>
-
 </Project>

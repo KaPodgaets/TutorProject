@@ -2,6 +2,7 @@ using Framework;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 using TutorProject.Application.Commands.CreateUser;
+using TutorProject.Application.Commands.Login;
 using Users.Contracts.Dtos;
 
 namespace Users.Presentation.Controllers;
@@ -53,16 +54,15 @@ public class UsersController : ApplicationController
 
     [HttpPost("login")]
     public async Task<IActionResult> LogIn(
-        [FromBody] NewUserDto user,
-        [FromServices] CreateUserHandler handler,
+        [FromBody] CredentialsDto loginCredentials,
+        [FromServices] LoginHandler handler,
         CancellationToken cancellationToken = default)
     {
-        var command = new CreateUserCommand(user.Email, user.Password);
+        var command = new LoginCommand(loginCredentials.Email, loginCredentials.Password);
         var result = await handler.ExecuteAsync(command, cancellationToken);
 
-        await Task.CompletedTask;
-
-        return Ok(result.Value);
+        // controller should return access token and refresh token in response model from Contracts
+        return Ok(result.Value.ToLoginResponse());
     }
 
     [HttpDelete("logout")]

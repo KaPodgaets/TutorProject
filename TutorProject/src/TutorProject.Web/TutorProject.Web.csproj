@@ -12,11 +12,14 @@
     <PackageReference Include="Serilog.AspNetCore"/>
     <PackageReference Include="Serilog.Sinks.Seq"/>
     <PackageReference Include="DotNetEnv"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Shared\Shared.csproj" />
-    <ProjectReference Include="..\Users\Users.Presentation\Users.Presentation.csproj" />
+    <ProjectReference Include="..\Core\Shared\Shared.csproj"/>
+    <ProjectReference Include="..\Students\Students.Presentation\Students.Presentation.csproj" />
+    <ProjectReference Include="..\Users\Users.Presentation\Users.Presentation.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,4 +36,9 @@
     <_ContentIncludedByDefault Remove="obj\TutorProject.Web.csproj.nuget.dgspec.json"/>
   </ItemGroup>
 
+<!--  <ItemGroup>-->
+<!--    <Content Include="Configurations\permissions.json">-->
+<!--      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--    </Content>-->
+<!--  </ItemGroup>-->
 </Project>

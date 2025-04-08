@@ -1,12 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Users.Domain;
+using Users.Domain.Roles;
 
 namespace Users.Infrastructure.Postgres.DbContext;
 
 public class UsersDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<User> Users => Set<User>();
+
+    public DbSet<RefreshSession> RefreshSessions => Set<RefreshSession>();
+
+    public DbSet<Role> Roles => Set<Role>();
+
+    public DbSet<Permission> Permissions => Set<Permission>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
