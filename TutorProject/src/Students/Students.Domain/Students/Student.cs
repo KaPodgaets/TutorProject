@@ -5,17 +5,14 @@ namespace Students.Domain.Students;
 
 public class Student : Entity<StudentId>, ISoftDeletable
 {
-    public Student(StudentId id, string firstName, string lastName, string citizenId)
+    public Student(StudentId id, FullName fullName, string citizenId)
         : base(id)
     {
-        FirstName = firstName;
-        LastName = lastName;
+        FullName = fullName;
         CitizenId = citizenId;
     }
 
-    public string FirstName { get; set; }
-
-    public string LastName { get; set; }
+    public FullName FullName { get; }
 
     public string CitizenId { get; set; }
 
@@ -38,4 +35,17 @@ public class Student : Entity<StudentId>, ISoftDeletable
         IsDeleted = false;
         DeletedOn = null;
     }
+}
+
+public class CitizenId : ComparableValueObject
+{
+    public CitizenId(string citizenId)
+    {
+        Value = citizenId;
+    }
+
+    public string Value { get; init; }
+
+    protected override IEnumerable<IComparable> GetComparableEqualityComponents() =>
+        throw new NotImplementedException();
 }
