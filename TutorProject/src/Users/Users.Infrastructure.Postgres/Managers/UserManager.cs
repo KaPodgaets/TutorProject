@@ -6,6 +6,7 @@ using Shared.ValueObjects;
 using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
 using Users.Domain;
+using Users.Domain.Roles;
 using Users.Domain.ValueObjects;
 
 namespace Users.Infrastructure.Postgres.Managers;
@@ -53,6 +54,7 @@ public class UserManager : IUserManager
     public async Task<Result<User, ErrorList>> RegisterNewUserAsync(
         Email email,
         Password password,
+        IEnumerable<Role> roles,
         CancellationToken cancellationToken)
     {
         var getUserResult = await _userRepository.GetByEmail(email, cancellationToken);
@@ -60,7 +62,8 @@ public class UserManager : IUserManager
             return Errors.General.AlreadyExist().ToErrorList();
 
         (string hash, string salt) = HashPassword(password.Value);
-        var createUserResult = User.CreateUser(email, hash, salt);
+
+        var createUserResult = User.CreateUser(email, hash, salt, roles);
         if (createUserResult.IsFailure)
             return Errors.Auth.InvalidCredentials().ToErrorList();
 

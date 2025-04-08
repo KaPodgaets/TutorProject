@@ -6,24 +6,24 @@ using Shared.Validation;
 using Shared.ValueObjects;
 using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
-using Users.Domain;
+using Users.Domain.Roles;
 
 namespace TutorProject.Application.Commands.CreateUser;
 
 public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 {
-    private readonly IUsersRepository _usersRepository;
+    private readonly IRolesRepository _rolesRepository;
     private readonly CreateUserValidator _validator;
     private readonly IUserManager _userManager;
     private readonly ILogger<CreateUserHandler> _logger;
 
     public CreateUserHandler(
-        IUsersRepository usersRepository,
+        IRolesRepository rolesRepository,
         CreateUserValidator validator,
         ILogger<CreateUserHandler> logger,
         IUserManager userManager)
     {
-        _usersRepository = usersRepository;
+        _rolesRepository = rolesRepository;
         _validator = validator;
         _logger = logger;
         _userManager = userManager;
@@ -46,7 +46,12 @@ public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
         var email = Email.Create(command.Email).Value;
         var password = Password.Create(command.Password).Value;
 
-        var registerNewUserResult = await _userManager.RegisterNewUserAsync(email, password, cancellationToken);
+        var existingRole = await _rolesRepository.GetRoleByName(Role.VIEWER, cancellationToken);
+        if (existingRole is null)
+            return Errors.General.Failure().ToErrorList();
+
+        var registerNewUserResult =
+            await _userManager.RegisterNewUserAsync(email, password, [existingRole], cancellationToken);
         if (registerNewUserResult.IsFailure)
             return registerNewUserResult.Error;
 

@@ -2,6 +2,7 @@ using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 using Shared.ValueObjects;
 using Users.Domain;
+using Users.Domain.Roles;
 using Users.Domain.ValueObjects;
 
 namespace TutorProject.Application.Abstractions;
@@ -19,5 +20,6 @@ public interface IUserManager
     Task<Result<User, ErrorList>> RegisterNewUserAsync(
         Email email,
         Password password,
+        IEnumerable<Role> roles,
         CancellationToken cancellationToken);
 }

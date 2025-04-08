@@ -97,16 +97,24 @@ public class UsersSeedingService
     private async Task SeedAdminUser(CancellationToken stoppingToken = default)
     {
         _logger.LogInformation("AutoSeeder: Checking for existing admin user");
+
+        // validate credentials
         if (string.IsNullOrWhiteSpace(_adminOptions.Email))
             throw new ArgumentNullException(_adminOptions.Email);
         if (string.IsNullOrWhiteSpace(_adminOptions.Password))
             throw new ArgumentNullException(_adminOptions.Password);
 
+        // check admin role exists
+        var adminRole = await _rolesRepository.GetRoleByName(AdminOptions.ADMIN_ROLE, stoppingToken)
+                        ?? throw new ApplicationException("Could not find admin role.");
+
+        // prepare VO
         var email = Email.Create(_adminOptions.Email).Value;
         var creatingPasswordResult = Password.Create(_adminOptions.Password);
         if (creatingPasswordResult.IsFailure)
             throw new AuthenticationException("Invalid email or password while seeding");
 
+        // check if admin user already exists
         var existingAdminResult = _userRepository.GetByEmail(email, stoppingToken).Result;
         if (existingAdminResult.IsSuccess)
         {
@@ -117,6 +125,7 @@ public class UsersSeedingService
         var registerNewUserResult = await _userManager.RegisterNewUserAsync(
             email,
             creatingPasswordResult.Value,
+            [adminRole],
             stoppingToken);
 
         if (registerNewUserResult.IsFailure)
