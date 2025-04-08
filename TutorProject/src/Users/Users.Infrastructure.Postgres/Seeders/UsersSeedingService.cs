@@ -2,10 +2,10 @@ using System.Security.Authentication;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shared.Database;
 using Shared.ValueObjects;
 using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
-using Users.Domain;
 using Users.Domain.Roles;
 using Users.Infrastructure.Postgres.Options;
 
@@ -18,19 +18,22 @@ public class UsersSeedingService
     private readonly IRolesRepository _rolesRepository;
     private readonly ILogger<UsersSeedingService> _logger;
     private readonly IUserManager _userManager;
+    private readonly IUnitOfWork _unitOfWork;
 
     public UsersSeedingService(
         IOptions<AdminOptions> adminOptions,
         IUsersRepository userRepository,
         IRolesRepository rolesRepository,
         ILogger<UsersSeedingService> logger,
-        IUserManager userManager)
+        IUserManager userManager,
+        IUnitOfWork unitOfWork)
     {
         _adminOptions = adminOptions.Value;
         _userRepository = userRepository;
         _rolesRepository = rolesRepository;
         _logger = logger;
         _userManager = userManager;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task SeedAsync(CancellationToken stoppingToken = default)
@@ -50,7 +53,7 @@ public class UsersSeedingService
 
     private static async Task<RolesPermissionsToSeed> GetPermissionsToSeed(CancellationToken stoppingToken)
     {
-        string json = await File.ReadAllTextAsync("etc/accounts.json", stoppingToken);
+        string json = await File.ReadAllTextAsync("etc/permissions.json", stoppingToken);
 
         var seedData = JsonSerializer.Deserialize<RolesPermissionsToSeed>(json)
                        ?? throw new ApplicationException("Could not deserialize roles and permissions to seed.");
@@ -65,6 +68,7 @@ public class UsersSeedingService
             .SelectMany(x => x.Value.Select(y => new Permission { Code = y }));
 
         await _rolesRepository.AddRange(permissionEntities);
+        await _unitOfWork.SaveChanges();
     }
 
     private async Task SeedRolesPermissionsRelationship(
@@ -92,6 +96,7 @@ public class UsersSeedingService
         }
 
         await _rolesRepository.AddRolesWithPermissions(rolesEntities, cancellationToken);
+        await _unitOfWork.SaveChanges(cancellationToken);
     }
 
     private async Task SeedAdminUser(CancellationToken stoppingToken = default)

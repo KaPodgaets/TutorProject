@@ -27,6 +27,8 @@ public class User
         Roles = roles.ToList();
     }
 
+    public Guid UserGuidId => Id.Value;
+
     public UserId Id { get; set; } = null!;
 
     public Email Email { get; set; } = null!;

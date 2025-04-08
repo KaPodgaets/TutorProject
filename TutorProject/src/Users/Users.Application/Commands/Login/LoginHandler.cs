@@ -12,16 +12,19 @@ public class LoginHandler : ICommandHandler<LoginResponseModel, LoginCommand>
 {
     private readonly LoginValidator _validator;
     private readonly IUserManager _userManager;
+    private readonly ITokenProvider _tokenProvider;
     private readonly ILogger<LoginHandler> _logger;
 
     public LoginHandler(
         LoginValidator validator,
         ILogger<LoginHandler> logger,
-        IUserManager userManager)
+        IUserManager userManager,
+        ITokenProvider tokenProvider)
     {
         _validator = validator;
         _logger = logger;
         _userManager = userManager;
+        _tokenProvider = tokenProvider;
     }
 
     public async Task<Result<LoginResponseModel, ErrorList>> ExecuteAsync(
@@ -35,8 +38,6 @@ public class LoginHandler : ICommandHandler<LoginResponseModel, LoginCommand>
             return validationResult.ToErrorList();
         }
 
-        // business logic validation
-
         // create new domain entity
         var email = Email.Create(command.Email).Value;
 
@@ -46,12 +47,13 @@ public class LoginHandler : ICommandHandler<LoginResponseModel, LoginCommand>
 
         _logger.LogInformation("User {UserId} created", loginResult.Value);
 
-        // TODO token provider logic
-        string accessToken = "test token";
-        string refreshToken = "refresh test token";
-        var responseModel = new LoginResponseModel(accessToken, refreshToken);
+        // token logic
+        var jwtResult = await _tokenProvider.GenerateAccessToken(loginResult.Value, cancellationToken);
+        var refreshToken = await _tokenProvider.GenerateRefreshToken(loginResult.Value, jwtResult.AccessTokenJti, cancellationToken);
+
+        var responseModel = new LoginResponseModel(jwtResult.AccessToken, refreshToken);
         return responseModel;
     }
 }
 
-public record LoginResponseModel(string AccessToken, string RefreshToken);
+public record LoginResponseModel(string AccessToken, Guid RefreshToken);

@@ -13,7 +13,7 @@ public interface IUserManager
 
     bool VerifyPassword(string password, string storedHash, string storedSalt);
 
-    Task<Result<UserId, ErrorList>> LoginAsync(Email email, string password, CancellationToken cancellationToken);
+    Task<Result<User, ErrorList>> LoginAsync(Email email, string password, CancellationToken cancellationToken);
 
     Task LogoutAsync(UserId userId);
 

@@ -1,6 +1,4 @@
-using Users.Domain.Roles;
-
-namespace Users.Domain;
+namespace Users.Domain.Roles;
 
 public class RolePermission
 {

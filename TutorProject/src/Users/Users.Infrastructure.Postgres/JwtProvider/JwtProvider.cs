@@ -16,16 +16,16 @@ using Users.Infrastructure.Postgres.Options;
 
 namespace Users.Infrastructure.Postgres.JwtProvider;
 
-public class TokenTokenProvider : ITokenProvider
+public class JwtTokenProvider : ITokenProvider
 {
     private readonly IOptions<JwtOptions> _jwtOptions;
     private readonly UsersDbContext _usersDbContext;
     private readonly IRolesRepository _permissionManager;
-    private readonly ILogger<TokenTokenProvider> _logger;
+    private readonly ILogger<JwtTokenProvider> _logger;
 
-    public TokenTokenProvider(
+    public JwtTokenProvider(
         IOptions<JwtOptions> jwtOptions,
-        ILogger<TokenTokenProvider> logger,
+        ILogger<JwtTokenProvider> logger,
         UsersDbContext usersDbContext,
         IRolesRepository permissionManager)
     {

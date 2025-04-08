@@ -1,10 +1,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Abstractions;
+using Shared.Database;
 using TutorProject.Application;
 using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
 using Users.Infrastructure.Postgres.DbContext;
+using Users.Infrastructure.Postgres.JwtProvider;
 using Users.Infrastructure.Postgres.Managers;
 using Users.Infrastructure.Postgres.Migrator;
 using Users.Infrastructure.Postgres.Options;
@@ -21,13 +23,18 @@ public static class DependencyInjection
     {
         services.AddOptions(configuration)
             .AddDatabase()
+            .AddDbContext(configuration)
             .AddRepositories()
             .AddUsersSeeding()
             .AddIdentityManagers();
+        services.AddScoped<ITokenProvider, JwtTokenProvider>();
+        return services;
+    }
 
-        services.AddScoped<IUsersRepository, UsersRepository>();
+    private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
+    {
         services.AddScoped<UsersDbContext>(_ => new UsersDbContext(configuration.GetConnectionString("Database")!));
-
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
 

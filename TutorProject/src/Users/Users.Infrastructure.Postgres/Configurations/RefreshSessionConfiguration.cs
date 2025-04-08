@@ -11,16 +11,8 @@ public class RefreshSessionConfiguration : IEntityTypeConfiguration<RefreshSessi
     {
         builder.ToTable("refresh_sessions");
 
-        builder.HasOne(x => x.User)
+        builder.HasOne(r => r.User)
             .WithMany()
-            .HasForeignKey(x => x.UserId)
-            .HasPrincipalKey(u => u.Id);
-
-        builder.Property(x => x.UserId)
-            .HasConversion(
-                id => id.Value,                  // Convert to store in DB (UserId -> Guid)
-                value => UserId.Create(value))   // Convert from DB (Guid -> UserId)
-            .HasColumnName("user_id")
-            .IsRequired();
+            .HasForeignKey(r => r.UserId);
     }
 }

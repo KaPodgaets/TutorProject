@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Users.Domain;
+using Users.Domain.Roles;
 
 namespace Users.Infrastructure.Postgres.Configurations;
 

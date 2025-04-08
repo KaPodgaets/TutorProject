@@ -37,7 +37,7 @@ public class UserManager : IUserManager
         return computedHash == storedHash;
     }
 
-    public async Task<Result<UserId, ErrorList>>
+    public async Task<Result<User, ErrorList>>
         LoginAsync(Email email, string password, CancellationToken cancellationToken)
     {
         var getUserResult = await _userRepository.GetByEmail(email, cancellationToken);
@@ -45,10 +45,10 @@ public class UserManager : IUserManager
             return Errors.Auth.InvalidCredentials().ToErrorList();
         var user = getUserResult.Value;
 
-        if (VerifyPassword(user.PasswordHash, user.PasswordSalt, password) is false)
+        if (VerifyPassword(password, user.PasswordHash, user.PasswordSalt) is false)
             return Errors.Auth.InvalidCredentials().ToErrorList();
 
-        return user.Id;
+        return user;
     }
 
     public async Task<Result<User, ErrorList>> RegisterNewUserAsync(

@@ -1,10 +1,12 @@
+using Users.Domain.ValueObjects;
+
 namespace Users.Domain;
 
 public class RefreshSession
 {
     public Guid Id { get; init; }
 
-    public Guid UserId { get; init; }
+    public required UserId UserId { get; init; }
 
     public User User { get; init; } = default!;
 
