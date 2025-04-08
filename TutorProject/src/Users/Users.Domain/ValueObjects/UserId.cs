@@ -25,6 +25,8 @@ public class UserId : ComparableValueObject
         return userId.Value;
     }
 
+    public new string ToString() => Value.ToString();
+
     protected override IEnumerable<IComparable> GetComparableEqualityComponents()
     {
         yield return Value;

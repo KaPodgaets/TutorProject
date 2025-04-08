@@ -1,5 +1,7 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Shared.Abstractions;
+using Users.Infrastructure.Postgres.Options;
 using Users.Presentation;
 
 namespace TutorProject.Web.Extensions;
@@ -59,6 +61,35 @@ public static class DependencyInjection
     private static IServiceCollection AddLogging(this IServiceCollection services)
     {
         services.AddHttpLogging(o => { o.CombineLogs = true; });
+        return services;
+    }
+
+    private static IServiceCollection AddAuthorizationServices(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        // services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+        // services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+        services.AddAuthentication(
+                options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+            .AddJwtBearer(
+                options =>
+                {
+                    var jwtOptions = configuration
+                                         .GetSection(JwtOptions.SECTION_NAME)
+                                         .Get<JwtOptions>()
+                                     ?? throw new ApplicationException("missing JwtOptions");
+
+                    options.TokenValidationParameters = JwtValidationParametersFactory.CreateWithLifeTime(jwtOptions);
+                });
+
+        services.AddAuthorization();
+
         return services;
     }
 }

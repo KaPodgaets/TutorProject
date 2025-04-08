@@ -23,9 +23,10 @@ public static class WebApplicationExtensions
         }
 
         // app.ConfigureCors();
-        // app.UseAuthentication();
+        app.UseAuthentication();
+
         // app.UseScopeDataMiddleware();
-        // app.UseAuthorization();
+        app.UseAuthorization();
         app.MapControllers();
     }
 

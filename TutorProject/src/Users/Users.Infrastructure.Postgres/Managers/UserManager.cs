@@ -55,7 +55,11 @@ public class UserManager : IUserManager
         Password password,
         CancellationToken cancellationToken)
     {
-        var (hash, salt) = HashPassword(password.Value);
+        var getUserResult = await _userRepository.GetByEmail(email, cancellationToken);
+        if (getUserResult.IsSuccess)
+            return Errors.General.AlreadyExist().ToErrorList();
+
+        (string hash, string salt) = HashPassword(password.Value);
         var createUserResult = User.CreateUser(email, hash, salt);
         if (createUserResult.IsFailure)
             return Errors.Auth.InvalidCredentials().ToErrorList();

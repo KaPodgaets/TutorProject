@@ -19,7 +19,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddOptions()
+        services.AddOptions(configuration)
             .AddDatabase()
             .AddUsersSeeding()
             .AddIdentityManagers();
@@ -36,7 +36,7 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddOptions(this IServiceCollection services)
+    private static IServiceCollection AddOptions(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<AdminOptions>(
             options =>
@@ -44,6 +44,8 @@ public static class DependencyInjection
                 options.Email = Environment.GetEnvironmentVariable("ADMIN_USER_EMAIL");
                 options.Password = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
             });
+
+        services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SECTION_NAME));
 
         return services;
     }

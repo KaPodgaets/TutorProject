@@ -59,5 +59,18 @@ public static class Errors
         {
             return Error.Validation("token.is.expired", "Token expired");
         }
+
+        public static Error UserAlreadyExist()
+        {
+            return Error.Validation("user.already.exist", "User already exist");
+        }
+    }
+
+    public static class Tokens
+    {
+        public static Error NotValid()
+        {
+            return Error.Validation("token.is.invalid", "Token is invalid");
+        }
     }
 }

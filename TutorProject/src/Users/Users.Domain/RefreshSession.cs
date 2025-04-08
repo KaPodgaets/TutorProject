@@ -13,4 +13,6 @@ public class RefreshSession
     public DateTime ExpiresIn { get; init; }
 
     public DateTime CreatedAt { get; init; }
+
+    public Guid Jti { get; init; }
 }

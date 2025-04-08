@@ -1,4 +1,4 @@
-namespace Users.Domain;
+namespace Users.Domain.Roles;
 
 public class Role
 {
@@ -10,4 +10,6 @@ public class Role
     public Guid Id { get; set; }
 
     public string Name { get; set; }
+
+    public List<Permission> Permissions { get; set; } = [];
 }

@@ -1,6 +1,7 @@
 using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 using Shared.ValueObjects;
+using Users.Domain.Roles;
 using Users.Domain.ValueObjects;
 
 namespace Users.Domain;
