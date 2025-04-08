@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TutorProject.Application.Database;
 using Users.Domain;
 using Users.Domain.Roles;
@@ -14,28 +15,51 @@ public class RolesRepository : IRolesRepository
         _dbContext = dbContext;
     }
 
-    public Task<Permission?> GetPermissionByCode(string code) => throw new NotImplementedException();
+    public async Task<Permission?> GetPermissionByCode(string code)
+        => await _dbContext.Permissions.FirstOrDefaultAsync(p => p.Code == code);
 
-    public Task<IEnumerable<Permission>?> GetAllPermissions(CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<IEnumerable<Permission>?> GetAllPermissions(CancellationToken cancellationToken = default)
+        => await _dbContext.Permissions.ToListAsync(cancellationToken);
 
-    public Task<IEnumerable<string>> GetAllExistingPermissionsCodes(CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<IEnumerable<string>> GetAllExistingPermissionsCodes(CancellationToken cancellationToken = default)
+        => await _dbContext.Permissions.Select(p => p.Code).ToListAsync(cancellationToken: cancellationToken);
 
-    public Task AddRange(IEnumerable<Permission> permissions, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task AddRange(IEnumerable<Permission> permissions, CancellationToken cancellationToken = default)
+    {
+        await _dbContext.Permissions.AddRangeAsync(permissions, cancellationToken);
+    }
 
-    public Task<HashSet<string>>
-        GetPermissionCodesByUserId(Guid userId, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<HashSet<string>> GetPermissionCodesByUserId(
+        Guid userId,
+        CancellationToken cancellationToken = default)
+    {
+        var perms = await _dbContext.Users
+            .Include(u => u.Roles)
+            .ThenInclude(r => r.Permissions)
+            .Where(u => u.Id == userId)
+            .SelectMany(u => u.Roles)
+            .SelectMany(r => r.Permissions)
+            .Select(p => p.Code)
+            .ToHashSetAsync(cancellationToken);
 
-    public Task AddRolesWithPermissions(
+        return perms;
+    }
+
+    public async Task AddRolesWithPermissions(
         IEnumerable<Role> rolesWithPermissions,
-        CancellationToken cancellationToken = default) => throw new NotImplementedException();
+        CancellationToken cancellationToken = default)
+    {
+        await _dbContext.Roles.AddRangeAsync(rolesWithPermissions, cancellationToken);
+    }
 
-    public Task ClearRolesAndPermissions(CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task ClearRolesAndPermissions(CancellationToken cancellationToken = default)
+    {
+        await _dbContext.Roles.ExecuteDeleteAsync(cancellationToken);
+        await _dbContext.Permissions.ExecuteDeleteAsync(cancellationToken);
+    }
 
-    public Task<Role?> GetRoleByName(string name, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<Role?> GetRoleByName(string name, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Roles.FirstOrDefaultAsync(r => r.Name == name, cancellationToken: cancellationToken);
+    }
 }

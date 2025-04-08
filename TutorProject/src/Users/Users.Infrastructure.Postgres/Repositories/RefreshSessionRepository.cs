@@ -1,4 +1,5 @@
 using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using Shared.ResultPattern;
 using TutorProject.Application.Database;
 using Users.Domain;
@@ -15,10 +16,22 @@ public class RefreshSessionRepository : IRefreshSessionsRepository
         _dbContext = dbContext;
     }
 
-    public Task<Result<RefreshSession, Error>> GetByRefreshToken(
-        Guid refreshToken,
-        CancellationToken cancellationToken) =>
-        throw new NotImplementedException();
+    public async Task<Result<RefreshSession, Error>> GetByRefreshToken(
+        Guid refreshToken, CancellationToken cancellationToken)
+    {
+        var refreshSession = await _dbContext.RefreshSessions
+            .Include(r => r.User)
+            .ThenInclude(u => u.Roles)
+            .FirstOrDefaultAsync(r => r.RefreshToken == refreshToken, cancellationToken);
 
-    public void Delete(RefreshSession refreshSession) => throw new NotImplementedException();
+        if (refreshSession is null)
+            return Errors.General.NotFound(refreshToken);
+
+        return refreshSession;
+    }
+
+    public void Delete(RefreshSession refreshSession)
+    {
+        _dbContext.RefreshSessions.Remove(refreshSession);
+    }
 }
