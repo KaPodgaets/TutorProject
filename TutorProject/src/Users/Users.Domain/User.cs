@@ -8,6 +8,11 @@ namespace Users.Domain;
 
 public class User
 {
+    // EF Core
+    private User()
+    {
+    }
+
     private User(
         UserId id,
         Email email,
@@ -22,17 +27,21 @@ public class User
         Roles = roles.ToList();
     }
 
-    public UserId Id { get; set; }
+    public UserId Id { get; set; } = null!;
 
-    public Email Email { get; set; }
+    public Email Email { get; set; } = null!;
 
-    public string PasswordHash { get; private set; }
+    public string PasswordHash { get; private set; } = string.Empty;
 
-    public string PasswordSalt { get; private set; }
+    public string PasswordSalt { get; private set; } = string.Empty;
 
     public List<Role> Roles { get; private set; } = [];
 
-    public static Result<User, ErrorList> CreateUser(Email email, string passwordHash, string salt, IEnumerable<Role> roles)
+    public static Result<User, ErrorList> CreateUser(
+        Email email,
+        string passwordHash,
+        string salt,
+        IEnumerable<Role> roles)
     {
         if (string.IsNullOrWhiteSpace(passwordHash))
         {

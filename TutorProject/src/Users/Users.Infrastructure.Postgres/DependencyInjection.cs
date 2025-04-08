@@ -21,11 +21,21 @@ public static class DependencyInjection
     {
         services.AddOptions(configuration)
             .AddDatabase()
+            .AddRepositories()
             .AddUsersSeeding()
             .AddIdentityManagers();
 
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<UsersDbContext>(_ => new UsersDbContext(configuration.GetConnectionString("Database")!));
+
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<IRolesRepository, RolesRepository>();
+        services.AddScoped<IRefreshSessionsRepository, RefreshSessionRepository>();
 
         return services;
     }
