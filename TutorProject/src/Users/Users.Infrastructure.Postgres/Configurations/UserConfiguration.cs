@@ -31,5 +31,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("password");
         builder.Property(x => x.PasswordSalt)
             .HasColumnName("security_stamp");
+
+        builder
+            .HasMany(u => u.Roles)
+            .WithMany(r => r.Users)
+            .UsingEntity(
+                j =>
+                    j.ToTable("user_roles"));
     }
 }
