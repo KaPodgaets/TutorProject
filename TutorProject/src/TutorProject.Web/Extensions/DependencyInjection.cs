@@ -1,5 +1,7 @@
 using FluentValidation;
+using Framework.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Shared.Abstractions;
 using Users.Infrastructure.Postgres.Options;
 using Users.Presentation;
@@ -68,8 +70,9 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
-        // services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+        services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+
         services.AddAuthentication(
                 options =>
                 {
