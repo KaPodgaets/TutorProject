@@ -1,15 +1,17 @@
-﻿namespace Students.Domain.Students;
+﻿using CSharpFunctionalExtensions;
+using Shared;
 
-public class Student
+namespace Students.Domain.Students;
+
+public class Student : Entity<StudentId>, ISoftDeletable
 {
-    public Student(string firstName, string lastName, string citizenId)
+    public Student(StudentId id, string firstName, string lastName, string citizenId)
+        : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
         CitizenId = citizenId;
     }
-
-    public Guid Id { get; set; }
 
     public string FirstName { get; set; }
 
@@ -20,4 +22,20 @@ public class Student
     public string? PassportNumber { get; set; }
 
     public Guid? SchoolId { get; set; }
+
+    public bool IsDeleted { get; private set; }
+
+    public DateTime? DeletedOn { get; private set; }
+
+    public void Delete()
+    {
+        IsDeleted = true;
+        DeletedOn = DateTime.UtcNow;
+    }
+
+    public void Restore()
+    {
+        IsDeleted = false;
+        DeletedOn = null;
+    }
 }
