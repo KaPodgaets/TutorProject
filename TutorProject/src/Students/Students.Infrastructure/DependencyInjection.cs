@@ -34,9 +34,10 @@ public static class DependencyInjection
     {
         services.AddScoped<StudentsDbContext>(
             _ => new StudentsDbContext(configuration.GetConnectionString("Database")!));
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        // services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Accounts);
+        // services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Students);
+
         return services;
     }
 

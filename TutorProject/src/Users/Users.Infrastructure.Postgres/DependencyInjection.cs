@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Abstractions;
 using Shared.Database;
+using Shared.Enums;
 using TutorProject.Application;
 using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
@@ -34,7 +35,7 @@ public static class DependencyInjection
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<UsersDbContext>(_ => new UsersDbContext(configuration.GetConnectionString("Database")!));
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Users);
         return services;
     }
 

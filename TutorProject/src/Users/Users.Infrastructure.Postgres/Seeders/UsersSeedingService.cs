@@ -1,8 +1,10 @@
 using System.Security.Authentication;
 using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shared.Database;
+using Shared.Enums;
 using Shared.ValueObjects;
 using TutorProject.Application.Abstractions;
 using TutorProject.Application.Database;
@@ -26,7 +28,7 @@ public class UsersSeedingService
         IRolesRepository rolesRepository,
         ILogger<UsersSeedingService> logger,
         IUserManager userManager,
-        IUnitOfWork unitOfWork)
+        [FromKeyedServices(Modules.Users)] IUnitOfWork unitOfWork)
     {
         _adminOptions = adminOptions.Value;
         _userRepository = userRepository;
