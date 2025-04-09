@@ -7,8 +7,4 @@
       <ProjectReference Include="..\Students.Domain\Students.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Commands\" />
-    </ItemGroup>
-
 </Project>

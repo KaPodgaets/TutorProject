@@ -12,7 +12,8 @@ public class Student : Entity<StudentId>, ISoftDeletable
     {
     }
 
-    // private readonly List<Parent> _parents = [];
+    private readonly List<Parent> _parents = [];
+
     public Student(
         StudentId id,
         FullName fullName,
@@ -35,8 +36,7 @@ public class Student : Entity<StudentId>, ISoftDeletable
 
     public Guid? SchoolId { get; private set; }
 
-    // public IReadOnlyList<Parent> Parents => _parents;
-    public List<Parent> Parents { get; private set; } = [];
+    public IReadOnlyList<Parent> Parents => _parents;
 
     public bool IsNeedTutor => TutorHoursNeeded > 0;
 
@@ -58,25 +58,26 @@ public class Student : Entity<StudentId>, ISoftDeletable
         return new Student(id, fullName, citizenId, passport, schoolId);
     }
 
-    // public UnitResult<ErrorList> AddParent(Parent parent)
-    // {
-    //     if (_parents.Any(p => p.Id == parent.Id))
-    //         return UnitResult.Failure(Errors.General.AlreadyExist().ToErrorList());
-    //     if(_parents.Count > 2)
-    //         return UnitResult.Failure(Errors.Students.TooManyParents().ToErrorList());
-    //
-    //     _parents.Add(parent);
-    //     return UnitResult.Success<ErrorList>();
-    // }
-    //
-    // public UnitResult<ErrorList> RemoveParent(Parent parent)
-    // {
-    //     if (_parents.Any(p => p.Id == parent.Id))
-    //         return UnitResult.Failure(Errors.General.NotFound(parent.Id).ToErrorList());
-    //
-    //     _parents.Remove(parent);
-    //     return UnitResult.Success<ErrorList>();
-    // }
+    public UnitResult<ErrorList> AddParent(Parent parent)
+    {
+        if (_parents.Any(p => p.Id == parent.Id))
+            return UnitResult.Failure(Errors.General.AlreadyExist().ToErrorList());
+        if (_parents.Count > 2)
+            return UnitResult.Failure(Errors.Students.TooManyParents().ToErrorList());
+
+        _parents.Add(parent);
+        return UnitResult.Success<ErrorList>();
+    }
+
+    public UnitResult<ErrorList> RemoveParent(Parent parent)
+    {
+        if (_parents.Any(p => p.Id == parent.Id))
+            return UnitResult.Failure(Errors.General.NotFound(parent.Id).ToErrorList());
+
+        _parents.Remove(parent);
+        return UnitResult.Success<ErrorList>();
+    }
+
     public UnitResult<ErrorList> AddTutorHours(int hours)
     {
         if (hours > 55)
