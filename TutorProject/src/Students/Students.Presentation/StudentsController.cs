@@ -16,7 +16,7 @@ public class StudentsController : ApplicationController
         return Ok("result");
     }
 
-    [Permission(Permissions.Students.CREATE)]
+    // [Permission(Permissions.Students.CREATE)]
     [HttpPost]
     public async Task<IActionResult> Create()
     {

@@ -3,6 +3,7 @@ using Framework.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Abstractions;
+using Students.Presentation;
 using Users.Infrastructure.Postgres.Options;
 using Users.Presentation;
 
@@ -28,12 +29,15 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddApplicationLayer(configuration);
-        services.AddUsersModule(configuration);
+        services.AddApplicationLayers(configuration);
+
+        services.AddUsersModule(configuration)
+            .AddStudentsModule(configuration);
+
         return services;
     }
 
-    private static IServiceCollection AddApplicationLayer(
+    private static IServiceCollection AddApplicationLayers(
         this IServiceCollection services,
         IConfiguration configuration)
     {

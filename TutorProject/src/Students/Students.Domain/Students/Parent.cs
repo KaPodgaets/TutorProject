@@ -10,25 +10,19 @@ namespace Students.Domain.Students;
 
 public class Parent : Entity<ParentId>, ISoftDeletable
 {
-    private readonly List<Student> _students;
-
     private Parent(
         ParentId id,
         CitizenId citizenId,
         Email email,
         PhoneNumber phoneNumber,
-        List<Student> students,
         Address address)
         : base(id)
     {
-        _students = students;
         CitizenId = citizenId;
         Email = email;
         PhoneNumber = phoneNumber;
         Address = address;
     }
-
-    public IReadOnlyList<Student> Students => _students;
 
     public Address Address { get; private set; }
 
@@ -49,12 +43,9 @@ public class Parent : Entity<ParentId>, ISoftDeletable
         CitizenId citizenId,
         Email email,
         PhoneNumber phoneNumber,
-        List<Student> students,
         Address address)
     {
-        if (students.Count == 0)
-            return Errors.General.ValueIsRequired(nameof(students)).ToErrorList();
-        return new Parent(id, citizenId, email, phoneNumber, students, address);
+        return new Parent(id, citizenId, email, phoneNumber, address);
     }
 
     public void Update(
