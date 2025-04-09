@@ -10,6 +10,11 @@ namespace Students.Domain.Students;
 
 public class Parent : Entity<ParentId>, ISoftDeletable
 {
+    public Parent()
+    {
+    }
+
+    // private readonly List<Student> _students = [];
     private Parent(
         ParentId id,
         CitizenId citizenId,
@@ -24,15 +29,18 @@ public class Parent : Entity<ParentId>, ISoftDeletable
         Address = address;
     }
 
-    public Address Address { get; private set; }
+    public Address Address { get; private set; } = null!;
 
     public string City => Address.CityName;
 
-    public PhoneNumber PhoneNumber { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; } = null!;
 
-    public CitizenId CitizenId { get; private set; }
+    public CitizenId CitizenId { get; private set; } = null!;
 
     public Email? Email { get; private set; }
+
+    // public IReadOnlyList<Student> Students => _students;
+    public List<Student> Children { get; private set; } = [];
 
     public bool IsDeleted { get; private set; }
 

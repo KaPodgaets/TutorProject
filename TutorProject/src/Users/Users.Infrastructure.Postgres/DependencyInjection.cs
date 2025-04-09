@@ -71,7 +71,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IMigrator, UsersMigrator>();
 
-        // services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Accounts);
         return services;
     }
 

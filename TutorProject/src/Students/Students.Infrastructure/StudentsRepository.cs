@@ -50,6 +50,7 @@ public class StudentsRepository : IStudentsRepository
     public async Task<Result<Student, ErrorList>> GetById(Guid id, CancellationToken cancellationToken)
     {
         var model = await _dbContext.Students
+            .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         if (model == null)
@@ -65,6 +66,7 @@ public class StudentsRepository : IStudentsRepository
         CancellationToken cancellationToken = default)
     {
         var model = await _dbContext.Students
+            .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.CitizenId == citizenId, cancellationToken);
 
         if (model == null)
@@ -80,6 +82,7 @@ public class StudentsRepository : IStudentsRepository
         CancellationToken cancellationToken = default)
     {
         var model = await _dbContext.Students
+            .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.Passport == passport, cancellationToken);
 
         if (model == null)

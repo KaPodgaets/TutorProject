@@ -2,11 +2,16 @@ using CSharpFunctionalExtensions;
 using Shared;
 using Shared.ResultPattern;
 using Shared.ValueObjects;
+using Students.Domain.Students.Ids;
 
 namespace Students.Domain.Schools;
 
 public class School : Entity<SchoolId>, ISoftDeletable
 {
+    private School()
+    {
+    } // Required by EF Core
+
     private School(
         SchoolId id,
         Address address,
@@ -19,11 +24,11 @@ public class School : Entity<SchoolId>, ISoftDeletable
         OrganizationName = organizationName;
     }
 
-    public Address Address { get; private set; }
+    public Address Address { get; private set; } = null!;
 
-    public MinistryOrganizationId MinistryOrganizationId { get; private set; }
+    public MinistryOrganizationId MinistryOrganizationId { get; private set; } = null!;
 
-    public string OrganizationName { get; private set; }
+    public string OrganizationName { get; private set; } = null!;
 
     public bool IsDeleted { get; private set; }
 
