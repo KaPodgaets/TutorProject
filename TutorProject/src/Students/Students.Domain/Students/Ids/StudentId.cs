@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace Students.Domain.Students;
+namespace Students.Domain.Students.Ids;
 
 public class StudentId : ComparableValueObject
 {

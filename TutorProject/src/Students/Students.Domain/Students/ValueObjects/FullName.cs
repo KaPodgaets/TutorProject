@@ -1,12 +1,13 @@
 ﻿using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 
-namespace Students.Domain.Students;
+namespace Students.Domain.Students.ValueObjects;
 
 public class FullName : ComparableValueObject
 {
     private FullName(
-        string firstName, string lastName)
+        string firstName,
+        string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -34,9 +35,9 @@ public class FullName : ComparableValueObject
     public override string ToString() =>
         $"{FirstName} {LastName}";
 
-
-    protected override IEnumerable<IComparable> GetComparableEqualityComponents() 
+    protected override IEnumerable<IComparable> GetComparableEqualityComponents()
     {
-        yield return Value;
+        yield return FirstName;
+        yield return LastName;
     }
 }
