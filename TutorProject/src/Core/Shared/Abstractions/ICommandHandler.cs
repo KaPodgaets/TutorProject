@@ -1,5 +1,5 @@
 using CSharpFunctionalExtensions;
-using Shared.Errors;
+using Shared.ResultPattern;
 
 namespace Shared.Abstractions;
 

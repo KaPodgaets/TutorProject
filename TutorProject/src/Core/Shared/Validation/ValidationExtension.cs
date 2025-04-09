@@ -1,6 +1,7 @@
 using FluentValidation.Results;
+using Shared.ResultPattern;
 
-namespace Shared.Errors;
+namespace Shared.Validation;
 
 public static class ValidationExtensions
 {

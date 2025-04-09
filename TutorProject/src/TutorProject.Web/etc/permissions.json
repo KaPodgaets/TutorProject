@@ -1,0 +1,78 @@
+{
+  "Roles": {
+    "Admin": [
+      "users.create",
+      "users.read",
+      "users.update",
+      "users.delete",
+      "students.read",
+      "students.create",
+      "students.update",
+      "students.delete",
+      "schools.read",
+      "schools.create",
+      "schools.update",
+      "schools.delete",
+      "tutors.read",
+      "tutors.create",
+      "tutors.update",
+      "tutors.delete",
+      "notifications.read",
+      "notifications.manage"
+    ],
+    "Manager": [
+      "users.read",
+      "students.read",
+      "students.create",
+      "students.update",
+      "students.delete",
+      "schools.read",
+      "schools.create",
+      "schools.update",
+      "schools.delete",
+      "tutors.read",
+      "tutors.create",
+      "tutors.update",
+      "tutors.delete",
+      "notifications.read",
+      "notifications.manage"
+    ],
+    "Viewer": [
+      "users.read",
+      "students.read",
+      "schools.read",
+      "tutors.read",
+      "notifications.read"
+    ]
+  },
+  "Permissions": {
+    "Users": [
+      "users.create",
+      "users.read",
+      "users.update",
+      "users.delete"
+    ],
+    "Students": [
+      "students.read",
+      "students.create",
+      "students.update",
+      "students.delete"
+    ],
+    "Schools": [
+      "schools.read",
+      "schools.create",
+      "schools.update",
+      "schools.delete"
+    ],
+    "Tutors": [
+      "tutors.read",
+      "tutors.create",
+      "tutors.update",
+      "tutors.delete"
+    ],
+    "Notifications": [
+      "notifications.read",
+      "notifications.manage"
+    ]
+  }
+}

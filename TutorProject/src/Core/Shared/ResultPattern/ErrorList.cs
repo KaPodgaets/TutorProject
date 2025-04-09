@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Shared.Errors;
+namespace Shared.ResultPattern;
 
 public class ErrorList : IEnumerable<Error>
 {

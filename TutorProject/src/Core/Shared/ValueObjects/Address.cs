@@ -1,6 +1,8 @@
+using CSharpFunctionalExtensions;
+
 namespace Shared.ValueObjects;
 
-public class Address
+public sealed record Address
 {
     public Address(
         int streetCode,

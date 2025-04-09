@@ -1,54 +1,74 @@
 using CSharpFunctionalExtensions;
-using Shared.Errors;
+using Shared.ResultPattern;
+using Shared.ValueObjects;
+using Users.Domain.Roles;
+using Users.Domain.ValueObjects;
 
 namespace Users.Domain;
 
 public class User
 {
-    private User(Guid id, string email, string passwordHash)
+    // EF Core
+    private User()
+    {
+    }
+
+    private User(
+        UserId id,
+        Email email,
+        string passwordHash,
+        string passwordSalt,
+        IEnumerable<Role> roles)
     {
         Id = id;
         Email = email;
         PasswordHash = passwordHash;
+        PasswordSalt = passwordSalt;
+        Roles = roles.ToList();
     }
 
-    public Guid Id { get; set; }
+    public Guid UserGuidId => Id.Value;
 
-    public string Email { get; set; }
+    public UserId Id { get; set; } = null!;
 
-    public string PasswordHash { get; set; }
+    public Email Email { get; set; } = null!;
 
-    public List<Role> Roles { get; private set; } = new();
+    public string PasswordHash { get; private set; } = string.Empty;
 
-    public static Result<User, ErrorList> CreateUser(string email, string password)
+    public string PasswordSalt { get; private set; } = string.Empty;
+
+    public List<Role> Roles { get; private set; } = [];
+
+    public static Result<User, ErrorList> CreateUser(
+        Email email,
+        string passwordHash,
+        string salt,
+        IEnumerable<Role> roles)
     {
-        if (string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(passwordHash))
         {
-            return Errors.General.ValueIsInvalid(nameof(email)).ToErrorList();
+            return Errors.General.ValueIsInvalid(nameof(passwordHash)).ToErrorList();
         }
 
-        if (string.IsNullOrWhiteSpace(password))
-        {
-            return Errors.General.ValueIsInvalid(nameof(password)).ToErrorList();
-        }
-
-        return new User(Guid.NewGuid(), email, password);
+        return new User(Guid.NewGuid(), email, passwordHash, salt, roles);
     }
 
-    public Result<Guid, ErrorList> ChangePassword(string newPasswordHash)
+    public Result<UserId, ErrorList> ChangePassword(string newPasswordHash, string newPasswordSalt)
     {
         if (string.IsNullOrWhiteSpace(newPasswordHash))
             return Errors.General.ValueIsInvalid(nameof(newPasswordHash)).ToErrorList();
 
+        if (string.IsNullOrWhiteSpace(newPasswordHash))
+            return Errors.General.ValueIsInvalid(nameof(newPasswordSalt)).ToErrorList();
+
         PasswordHash = newPasswordHash;
+        PasswordSalt = newPasswordSalt;
+
         return Id;
     }
 
-    public Result<Guid, ErrorList> ChangeEmail(string newEmail)
+    public Result<UserId, ErrorList> ChangeEmail(Email newEmail)
     {
-        if (string.IsNullOrWhiteSpace(newEmail))
-            return Errors.General.ValueIsInvalid(nameof(newEmail)).ToErrorList();
-
         Email = newEmail;
         return Id;
     }

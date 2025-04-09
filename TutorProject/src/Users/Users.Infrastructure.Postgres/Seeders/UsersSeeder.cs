@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Abstractions;
 
-namespace Users.Infrastructure.Postgres;
+namespace Users.Infrastructure.Postgres.Seeders;
 
 public class UsersSeeder(IServiceScopeFactory serviceScopeFactory) : IAutoSeeder
 {

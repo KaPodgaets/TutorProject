@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Shared.Errors;
+using Shared.ResultPattern;
 
 namespace Shared;
 
