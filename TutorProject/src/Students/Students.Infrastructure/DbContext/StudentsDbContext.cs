@@ -1,17 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Students.Application.Database;
 using Students.Domain.Schools;
 using Students.Domain.Students;
 
 namespace Students.Infrastructure.DbContext;
 
-public class StudentsDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext
+public class StudentsDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext, IStudentsDbContext
 {
+    // Write
     public DbSet<Student> Students => Set<Student>();
 
-    public DbSet<Parent> RefreshSessions => Set<Parent>();
+    public DbSet<Parent> Parents => Set<Parent>();
 
-    public DbSet<School> Roles => Set<School>();
+    public DbSet<School> Schools => Set<School>();
+
+    // Queries
+    IQueryable<Parent> IStudentsDbContext.Parents => Parents.AsQueryable();
+
+    IQueryable<Student> IStudentsDbContext.Students => Students.AsQueryable();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

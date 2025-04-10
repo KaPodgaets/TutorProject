@@ -2,7 +2,7 @@
 using Shared.Abstractions;
 using Shared.ResultPattern;
 
-namespace Students.Application.Commands.CreateStudent;
+namespace Students.Application.Commands.UpdateStudent;
 
 public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
 {
