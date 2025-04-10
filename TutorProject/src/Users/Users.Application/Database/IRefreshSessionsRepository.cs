@@ -2,7 +2,7 @@ using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 using Users.Domain;
 
-namespace TutorProject.Application.Database;
+namespace Users.Application.Database;
 
 public interface IRefreshSessionsRepository
 {

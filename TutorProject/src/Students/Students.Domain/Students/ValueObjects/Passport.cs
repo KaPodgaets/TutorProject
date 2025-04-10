@@ -15,7 +15,7 @@ public class Passport : ComparableValueObject
 
     public string Country { get; init; }
 
-    public static Result<Passport, ErrorList> Create(string number, string country)
+    public static Result<Passport, ErrorList> Create(string? number, string? country)
     {
         if (string.IsNullOrWhiteSpace(number))
             return Errors.General.ValueIsInvalid(nameof(number)).ToErrorList();

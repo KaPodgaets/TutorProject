@@ -5,7 +5,6 @@ using Shared.ResultPattern;
 using Shared.Validation;
 using Students.Application.Commands.CreateStudent;
 using Students.Application.Database;
-using Students.Domain.Students;
 using Students.Domain.Students.Ids;
 using Students.Domain.Students.ValueObjects;
 

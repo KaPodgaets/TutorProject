@@ -5,7 +5,7 @@ using Users.Domain;
 using Users.Domain.Roles;
 using Users.Domain.ValueObjects;
 
-namespace TutorProject.Application.Abstractions;
+namespace Users.Application.Abstractions;
 
 public interface IUserManager
 {

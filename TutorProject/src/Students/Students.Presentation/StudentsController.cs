@@ -31,8 +31,9 @@ public class StudentsController : ApplicationController
         return Ok(result.Value);
     }
 
+    [HttpGet]
     public async Task<IActionResult> GetAllFilteredWithPagination(
-        [FromBody] GetFilteredStudentsWithPaginationRequest request,
+        [FromQuery] GetFilteredStudentsWithPaginationRequest request,
         [FromServices] GetFilteredStudentsWithPaginationHandler handler,
         CancellationToken cancellationToken)
     {
@@ -41,7 +42,7 @@ public class StudentsController : ApplicationController
         return Ok(result.Value);
     }
 
-    [HttpPatch("{userId:guid}")]
+    [HttpPatch("{studentId:guid}")]
     public async Task<IActionResult> Update(
         [FromRoute] Guid studentId,
         [FromBody] UpdateStudentRequest request,

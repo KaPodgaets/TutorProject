@@ -1,7 +1,6 @@
-using Users.Domain;
 using Users.Domain.Roles;
 
-namespace TutorProject.Application.Database;
+namespace Users.Application.Database;
 
 public interface IRolesRepository
 {

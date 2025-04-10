@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using TutorProject.Application.Database;
+using Users.Application.Database;
 using Users.Domain;
 using Users.Domain.Roles;
 using Users.Infrastructure.Postgres.DbContext;

@@ -1,8 +1,8 @@
 using Framework;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
-using TutorProject.Application.Commands.CreateUser;
-using TutorProject.Application.Commands.Login;
+using Users.Application.Commands.CreateUser;
+using Users.Application.Commands.Login;
 using Users.Contracts.Dtos;
 
 namespace Users.Presentation.Controllers;

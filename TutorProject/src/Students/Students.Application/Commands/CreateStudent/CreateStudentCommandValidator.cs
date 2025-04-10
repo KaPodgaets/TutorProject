@@ -31,7 +31,7 @@ public class CreateStudentCommandValidator : AbstractValidator<CreateStudentComm
 
         // Passport is optional; validate only if provided
         When(
-            x => !string.IsNullOrWhiteSpace(x.PassportNumber) || !string.IsNullOrWhiteSpace(x.PassportCountry),
+            x => !string.IsNullOrWhiteSpace(x.PassportNumber) && !string.IsNullOrWhiteSpace(x.PassportCountry),
             () =>
             {
                 RuleFor(x => x.PassportNumber)
@@ -42,6 +42,7 @@ public class CreateStudentCommandValidator : AbstractValidator<CreateStudentComm
                     .NotEmpty()
                     .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.PassportCountry)));
 
+                // WARNING. bad code here - make Create(string? , string?) to avoid possible-null reference warning
                 RuleFor(x => new { x.PassportNumber, x.PassportCountry })
                     .Must(x => Passport.Create(x.PassportNumber, x.PassportCountry).IsSuccess)
                     .WithError(Errors.General.ValueIsInvalid("Passport"));

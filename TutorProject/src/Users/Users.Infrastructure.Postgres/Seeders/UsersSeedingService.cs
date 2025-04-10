@@ -6,8 +6,8 @@ using Microsoft.Extensions.Options;
 using Shared.Database;
 using Shared.Enums;
 using Shared.ValueObjects;
-using TutorProject.Application.Abstractions;
-using TutorProject.Application.Database;
+using Users.Application.Abstractions;
+using Users.Application.Database;
 using Users.Domain.Roles;
 using Users.Infrastructure.Postgres.Options;
 

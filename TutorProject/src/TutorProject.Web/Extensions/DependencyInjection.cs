@@ -41,7 +41,11 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var assemblies = new[] { typeof(TutorProject.Application.DependencyInjection).Assembly, };
+        var assemblies = new[]
+        {
+            typeof(Users.Application.DependencyInjection).Assembly,
+            typeof(Students.Application.DependencyInjection).Assembly
+        };
 
         services.Scan(
             scan => scan.FromAssemblies(assemblies)
