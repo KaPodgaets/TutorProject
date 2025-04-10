@@ -1,14 +1,18 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Shared.ResultPattern;
 using Shared.Validation;
+using Students.Application.Commands.CreateStudent;
 using Students.Domain.Students.ValueObjects;
 
-namespace Students.Application.Commands.CreateStudent;
+namespace Students.Application.Commands.UpdateStudent;
 
-public class CreateStudentCommandValidator : AbstractValidator<CreateStudentCommand>
+public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentCommand>
 {
-    public CreateStudentCommandValidator()
+    public UpdateStudentCommandValidator()
     {
+        RuleFor(x => x.StudentId).NotEmpty()
+            .WithError(Errors.General.ValueIsRequired(nameof(UpdateStudentCommand.StudentId)));
+
         RuleFor(x => x.FirstName)
             .NotEmpty()
             .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.FirstName)));
