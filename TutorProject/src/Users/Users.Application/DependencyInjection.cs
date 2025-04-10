@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TutorProject.Application.Commands.CreateUser;
+using Users.Application.Commands.CreateUser;
 
-namespace TutorProject.Application;
+namespace Users.Application;
 
 public static class DependencyInjection
 {

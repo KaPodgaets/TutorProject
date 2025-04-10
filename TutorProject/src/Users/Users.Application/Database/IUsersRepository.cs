@@ -3,7 +3,7 @@ using Shared.ResultPattern;
 using Shared.ValueObjects;
 using Users.Domain;
 
-namespace TutorProject.Application.Database;
+namespace Users.Application.Database;
 
 public interface IUsersRepository
 {

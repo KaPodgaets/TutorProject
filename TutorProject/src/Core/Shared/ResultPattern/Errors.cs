@@ -73,4 +73,17 @@ public static class Errors
             return Error.Validation("token.is.invalid", "Token is invalid");
         }
     }
+
+    public static class Students
+    {
+        public static Error TutorHoursToBig()
+        {
+            return Error.Validation("tutor.hours.invalid", "Tutor hours is too big");
+        }
+
+        public static Error TooManyParents()
+        {
+            return Error.Failure("parents.amount.invalid", "Parent amount could not be more than 2");
+        }
+    }
 }

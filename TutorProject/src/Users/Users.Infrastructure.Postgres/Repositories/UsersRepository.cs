@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shared.ResultPattern;
 using Shared.ValueObjects;
-using TutorProject.Application.Database;
+using Users.Application.Database;
 using Users.Domain;
 using Users.Infrastructure.Postgres.DbContext;
 

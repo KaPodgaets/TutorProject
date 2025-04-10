@@ -4,9 +4,9 @@ using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
-using TutorProject.Application.Abstractions;
+using Users.Application.Abstractions;
 
-namespace TutorProject.Application.Commands.Login;
+namespace Users.Application.Commands.Login;
 
 public class LoginHandler : ICommandHandler<LoginResponseModel, LoginCommand>
 {

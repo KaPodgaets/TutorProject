@@ -4,11 +4,11 @@ using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
-using TutorProject.Application.Abstractions;
-using TutorProject.Application.Database;
+using Users.Application.Abstractions;
+using Users.Application.Database;
 using Users.Domain.Roles;
 
-namespace TutorProject.Application.Commands.CreateUser;
+namespace Users.Application.Commands.CreateUser;
 
 public class CreateUserHandler : ICommandHandler<Guid, CreateUserCommand>
 {

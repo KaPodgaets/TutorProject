@@ -3,7 +3,7 @@ using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
 
-namespace TutorProject.Application.Commands.CreateUser;
+namespace Users.Application.Commands.CreateUser;
 
 public class CreateUserValidator : AbstractValidator<CreateUserCommand>
 {

@@ -2,9 +2,9 @@ using FluentValidation;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
-using TutorProject.Application.Commands.CreateUser;
+using Users.Application.Commands.CreateUser;
 
-namespace TutorProject.Application.Commands.Login;
+namespace Users.Application.Commands.Login;
 
 public class LoginValidator : AbstractValidator<LoginCommand>
 {

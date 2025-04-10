@@ -1,6 +1,6 @@
 using Shared.Abstractions;
 
-namespace TutorProject.Application.Commands.Login;
+namespace Users.Application.Commands.Login;
 
 public record LoginCommand(
     string Email,
