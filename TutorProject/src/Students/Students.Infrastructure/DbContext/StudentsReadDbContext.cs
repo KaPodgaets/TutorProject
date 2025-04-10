@@ -6,7 +6,7 @@ using Students.Domain.Students;
 
 namespace Students.Infrastructure.DbContext;
 
-public class StudentsDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext, IStudentsDbContext
+public class StudentsReadDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext, IStudentsReadDbContext
 {
     // Write
     public DbSet<Student> Students => Set<Student>();
@@ -16,9 +16,9 @@ public class StudentsDbContext(string connectionString) : Microsoft.EntityFramew
     public DbSet<School> Schools => Set<School>();
 
     // Queries
-    IQueryable<Parent> IStudentsDbContext.Parents => Parents.AsQueryable();
+    IQueryable<Parent> IStudentsReadDbContext.Parents => Parents.AsQueryable().AsNoTracking();
 
-    IQueryable<Student> IStudentsDbContext.Students => Students.AsQueryable();
+    IQueryable<Student> IStudentsReadDbContext.Students => Students.AsQueryable().AsNoTracking();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -31,7 +31,7 @@ public class StudentsDbContext(string connectionString) : Microsoft.EntityFramew
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(StudentsDbContext).Assembly,
+            typeof(StudentsReadDbContext).Assembly,
             type => type.FullName?.Contains("Configurations") ?? false);
 
         modelBuilder.HasDefaultSchema("students");

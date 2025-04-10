@@ -2,7 +2,7 @@ using Students.Domain.Students;
 
 namespace Students.Application.Database;
 
-public interface IStudentsDbContext
+public interface IStudentsReadDbContext
 {
     IQueryable<Student> Students { get; }
 

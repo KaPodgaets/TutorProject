@@ -10,20 +10,20 @@ namespace Students.Infrastructure;
 
 public class StudentsRepository : IStudentsRepository
 {
-    private readonly StudentsDbContext _dbContext;
+    private readonly StudentsReadDbContext _readDbContext;
 
-    public StudentsRepository(StudentsDbContext dbContext)
+    public StudentsRepository(StudentsReadDbContext readDbContext)
     {
-        _dbContext = dbContext;
+        _readDbContext = readDbContext;
     }
 
     public async Task<Result<Guid, ErrorList>> Create(Student model, CancellationToken cancellationToken)
     {
         try
         {
-            await _dbContext.Students.AddAsync(model, cancellationToken);
+            await _readDbContext.Students.AddAsync(model, cancellationToken);
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _readDbContext.SaveChangesAsync(cancellationToken);
         }
         catch (Exception)
         {
@@ -35,21 +35,21 @@ public class StudentsRepository : IStudentsRepository
 
     public async Task<Result<Guid, ErrorList>> Delete(Student model, CancellationToken cancellationToken)
     {
-        _dbContext.Students.Remove(model);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _readDbContext.Students.Remove(model);
+        await _readDbContext.SaveChangesAsync(cancellationToken);
         return model.Id.Value;
     }
 
     public async Task<Result<Guid, ErrorList>> Update(Student model, CancellationToken cancellationToken)
     {
-        _dbContext.Students.Attach(model);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _readDbContext.Students.Attach(model);
+        await _readDbContext.SaveChangesAsync(cancellationToken);
         return model.Id.Value;
     }
 
     public async Task<Result<Student, ErrorList>> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var model = await _dbContext.Students
+        var model = await _readDbContext.Students
             .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
@@ -65,7 +65,7 @@ public class StudentsRepository : IStudentsRepository
         CitizenId citizenId,
         CancellationToken cancellationToken = default)
     {
-        var model = await _dbContext.Students
+        var model = await _readDbContext.Students
             .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.CitizenId == citizenId, cancellationToken);
 
@@ -81,7 +81,7 @@ public class StudentsRepository : IStudentsRepository
         Passport passport,
         CancellationToken cancellationToken = default)
     {
-        var model = await _dbContext.Students
+        var model = await _readDbContext.Students
             .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.Passport == passport, cancellationToken);
 

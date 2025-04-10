@@ -11,20 +11,20 @@ namespace Students.Application.Queries;
 public class GetFilteredStudentsWithPaginationHandler
     : IQueryHandler<PagedList<Student>, GetFilteredStudentsWithPaginationQuery>
 {
-    private readonly IStudentsDbContext _queryContext;
+    private readonly IStudentsReadDbContext _readDbContext;
 
     public GetFilteredStudentsWithPaginationHandler(
-        IStudentsDbContext queryContext,
+        IStudentsReadDbContext readDbContext,
         ILogger<GetFilteredStudentsWithPaginationHandler> logger)
     {
-        _queryContext = queryContext;
+        _readDbContext = readDbContext;
     }
 
     public async Task<Result<PagedList<Student>>> HandleAsync(
         GetFilteredStudentsWithPaginationQuery query,
         CancellationToken cancellationToken = default)
     {
-        var studentsQuery = _queryContext.Students.AsQueryable();
+        var studentsQuery = _readDbContext.Students;
 
         studentsQuery = studentsQuery
             .WhereIf(

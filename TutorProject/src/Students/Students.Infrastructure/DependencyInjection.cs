@@ -32,11 +32,11 @@ public static class DependencyInjection
 
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<StudentsDbContext>(
-            _ => new StudentsDbContext(configuration.GetConnectionString("Database")!));
+        services.AddScoped<StudentsReadDbContext>(
+            _ => new StudentsReadDbContext(configuration.GetConnectionString("Database")!));
 
-        services.AddScoped<IStudentsDbContext, StudentsDbContext>(
-            _ => new StudentsDbContext(configuration.GetConnectionString("Database")!));
+        services.AddScoped<IStudentsReadDbContext, StudentsReadDbContext>(
+            _ => new StudentsReadDbContext(configuration.GetConnectionString("Database")!));
 
         services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Students);
 

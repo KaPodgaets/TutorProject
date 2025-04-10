@@ -6,7 +6,7 @@ using Students.Infrastructure.DbContext;
 namespace Students.Infrastructure.Migrator;
 
 public class StudentsMigrator(
-    StudentsDbContext context,
+    StudentsReadDbContext context,
     ILogger<StudentsMigrator> logger) : IMigrator
 {
     public async Task MigrateAsync(CancellationToken cancellationToken = default)
