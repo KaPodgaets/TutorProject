@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore"/>
   </ItemGroup>
 
 </Project>

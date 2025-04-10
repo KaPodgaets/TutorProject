@@ -2,9 +2,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Abstractions;
 using Shared.Database;
-using TutorProject.Application;
-using TutorProject.Application.Abstractions;
-using TutorProject.Application.Database;
+using Shared.Enums;
+using Users.Application.Abstractions;
+using Users.Application.Database;
 using Users.Infrastructure.Postgres.DbContext;
 using Users.Infrastructure.Postgres.JwtProvider;
 using Users.Infrastructure.Postgres.Managers;
@@ -34,7 +34,7 @@ public static class DependencyInjection
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<UsersDbContext>(_ => new UsersDbContext(configuration.GetConnectionString("Database")!));
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Users);
         return services;
     }
 
@@ -71,7 +71,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IMigrator, UsersMigrator>();
 
-        // services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Accounts);
         return services;
     }
 

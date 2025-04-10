@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		docker-compose.yml = docker-compose.yml
 		.env = src\TutorProject.Web\.env
 		Directory.Packages.props = Directory.Packages.props
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3D1AB0D-9583-4F83-8243-B989DD1DF96B}"
@@ -47,6 +48,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutors.Domain", "src\Tutors\Tutors.Domain\Tutors.Domain.csproj", "{DBADED2E-F609-4BB5-B5D0-3321EC0A41C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "src\Core\Framework\Framework.csproj", "{302648BE-6D12-4205-A529-5F67B0863FFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students.Application", "src\Students\Students.Application\Students.Application.csproj", "{C54E1BCE-4BFE-49CD-BC04-71C18C5DF9CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students.Contracts", "src\Students\Students.Contracts\Students.Contracts.csproj", "{D1E31EBE-802C-4A64-9BAD-C8D689669CDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students.Infrastructure", "src\Students\Students.Infrastructure\Students.Infrastructure.csproj", "{FC28C247-0E3E-4555-87BF-8B4760885E45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +109,18 @@ Global
 		{302648BE-6D12-4205-A529-5F67B0863FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{302648BE-6D12-4205-A529-5F67B0863FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{302648BE-6D12-4205-A529-5F67B0863FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54E1BCE-4BFE-49CD-BC04-71C18C5DF9CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54E1BCE-4BFE-49CD-BC04-71C18C5DF9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54E1BCE-4BFE-49CD-BC04-71C18C5DF9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54E1BCE-4BFE-49CD-BC04-71C18C5DF9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E31EBE-802C-4A64-9BAD-C8D689669CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E31EBE-802C-4A64-9BAD-C8D689669CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E31EBE-802C-4A64-9BAD-C8D689669CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E31EBE-802C-4A64-9BAD-C8D689669CDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC28C247-0E3E-4555-87BF-8B4760885E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC28C247-0E3E-4555-87BF-8B4760885E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC28C247-0E3E-4555-87BF-8B4760885E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC28C247-0E3E-4555-87BF-8B4760885E45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{279E7A79-4F5A-4B1D-B490-ED8A36E4D61D} = {A3D1AB0D-9583-4F83-8243-B989DD1DF96B}
@@ -122,5 +141,8 @@ Global
 		{A125B9EE-9DC0-4DCA-AC32-CA309B12B943} = {7F8D76A5-6050-4C49-8BC8-219983A8124F}
 		{DBADED2E-F609-4BB5-B5D0-3321EC0A41C0} = {85A7E80F-24B5-45B5-BF42-038F8526D144}
 		{302648BE-6D12-4205-A529-5F67B0863FFB} = {4C10CCAF-02B3-4C06-BC4E-D3AD4288E0D8}
+		{C54E1BCE-4BFE-49CD-BC04-71C18C5DF9CE} = {7F8D76A5-6050-4C49-8BC8-219983A8124F}
+		{D1E31EBE-802C-4A64-9BAD-C8D689669CDB} = {7F8D76A5-6050-4C49-8BC8-219983A8124F}
+		{FC28C247-0E3E-4555-87BF-8B4760885E45} = {7F8D76A5-6050-4C49-8BC8-219983A8124F}
 	EndGlobalSection
 EndGlobal

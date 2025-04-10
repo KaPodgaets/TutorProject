@@ -1,10 +1,10 @@
 using System.Security.Claims;
 using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
-using TutorProject.Application.Models;
+using Users.Application.Models;
 using Users.Domain;
 
-namespace TutorProject.Application.Abstractions;
+namespace Users.Application.Abstractions;
 
 public interface ITokenProvider
 {

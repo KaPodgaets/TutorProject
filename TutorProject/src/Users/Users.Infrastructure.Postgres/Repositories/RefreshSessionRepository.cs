@@ -1,7 +1,7 @@
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.ResultPattern;
-using TutorProject.Application.Database;
+using Users.Application.Database;
 using Users.Domain;
 using Users.Infrastructure.Postgres.DbContext;
 

@@ -35,10 +35,5 @@
     <_ContentIncludedByDefault Remove="obj\project.packagespec.json"/>
     <_ContentIncludedByDefault Remove="obj\TutorProject.Web.csproj.nuget.dgspec.json"/>
   </ItemGroup>
-
-<!--  <ItemGroup>-->
-<!--    <Content Include="Configurations\permissions.json">-->
-<!--      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
-<!--    </Content>-->
-<!--  </ItemGroup>-->
+  
 </Project>
