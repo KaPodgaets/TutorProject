@@ -5,11 +5,15 @@ namespace Students.Domain.Students.ValueObjects;
 
 public class Passport : ComparableValueObject
 {
+    private string x = string.Empty;
+
     private Passport(string number, string country)
     {
         Number = number;
         Country = country;
     }
+
+    public static Passport None { get; } = new Passport(string.Empty, string.Empty);
 
     public string Number { get; init; }
 

@@ -44,12 +44,14 @@ public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
 
         // create new domain entity
         var fullName = FullName.Create(command.FirstName, command.LastName).Value;
-        var citizenId = CitizenId.Create(command.CitizenId).Value;
+        CitizenId citizenId = string.IsNullOrWhiteSpace(command.CitizenId)
+            ? CitizenId.Create(command.CitizenId).Value
+            : CitizenId.None;
 
-        var passport = (command.PassportNumber, command.PassportCountry) is
+        Passport passport = (command.PassportNumber, command.PassportCountry) is
             (not null, not null)
                 ? Passport.Create(command.PassportNumber, command.PassportCountry).Value
-                : null;
+                : Passport.None;
 
         var studentId = StudentId.Create(command.StudentId).Value;
         var existingStudent = await _repository.GetById(studentId, cancellationToken);

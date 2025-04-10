@@ -52,13 +52,13 @@ public class Student : Entity<StudentId>, ISoftDeletable
         StudentId id,
         FullName fullName,
         CitizenId citizenId,
-        Passport? passport,
+        Passport passport,
         Guid? schoolId)
     {
         return new Student(id, fullName, citizenId, passport, schoolId);
     }
 
-    public UnitResult<ErrorList> Update(FullName fullName, CitizenId citizenId, Passport? passport, Guid? schoolId)
+    public UnitResult<ErrorList> Update(FullName fullName, CitizenId citizenId, Passport passport, Guid? schoolId)
     {
         FullName = fullName;
         CitizenId = citizenId;
