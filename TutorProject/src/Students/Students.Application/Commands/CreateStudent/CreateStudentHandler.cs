@@ -65,7 +65,7 @@ public class CreateStudentHandler : ICommandHandler<Guid, CreateStudentCommand>
         if (createNewStudentResult.IsFailure)
             return createNewStudentResult.Error;
 
-        _logger.LogInformation("Student with id: {UserId} created", createNewStudentResult.Value);
+        _logger.LogInformation("Student with id: {StudentId} created", createNewStudentResult.Value);
 
         return createNewStudentResult.Value;
     }

@@ -58,6 +58,15 @@ public class Student : Entity<StudentId>, ISoftDeletable
         return new Student(id, fullName, citizenId, passport, schoolId);
     }
 
+    public UnitResult<ErrorList> Update(FullName fullName, CitizenId citizenId, Passport? passport, Guid? schoolId)
+    {
+        FullName = fullName;
+        CitizenId = citizenId;
+        Passport = passport;
+        SchoolId = schoolId;
+        return Result.Success<ErrorList>();
+    }
+
     public UnitResult<ErrorList> AddParent(Parent parent)
     {
         if (_parents.Any(p => p.Id == parent.Id))
