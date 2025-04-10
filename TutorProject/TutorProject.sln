@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		docker-compose.yml = docker-compose.yml
 		.env = src\TutorProject.Web\.env
 		Directory.Packages.props = Directory.Packages.props
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A3D1AB0D-9583-4F83-8243-B989DD1DF96B}"

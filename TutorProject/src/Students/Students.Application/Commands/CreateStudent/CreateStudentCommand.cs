@@ -6,6 +6,6 @@ public record CreateStudentCommand(
     string FirstName,
     string LastName,
     string CitizenId,
-    string PassportNumber,
-    string PassportCountry,
+    string? PassportNumber,
+    string? PassportCountry,
     Guid? SchoolId) : ICommand;
