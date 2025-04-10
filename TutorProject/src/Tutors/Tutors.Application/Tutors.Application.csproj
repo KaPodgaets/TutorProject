@@ -3,4 +3,8 @@
     <PropertyGroup>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Tutors.Domain\Tutors.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
