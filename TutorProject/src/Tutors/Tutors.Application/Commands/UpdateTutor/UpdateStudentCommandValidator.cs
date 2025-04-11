@@ -2,10 +2,9 @@ using FluentValidation;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
-using Students.Application.Commands.CreateStudent;
-using Students.Domain.Students.ValueObjects;
+using Tutors.Application.Commands.CreateTutor;
 
-namespace Students.Application.Commands.UpdateStudent;
+namespace Tutors.Application.Commands.UpdateTutor;
 
 public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentCommand>
 {
@@ -16,11 +15,11 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
 
         RuleFor(x => x.FirstName)
             .NotEmpty()
-            .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.FirstName)));
+            .WithError(Errors.General.ValueIsRequired(nameof(CreateTutorCommand.FirstName)));
 
         RuleFor(x => x.LastName)
             .NotEmpty()
-            .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.LastName)));
+            .WithError(Errors.General.ValueIsRequired(nameof(CreateTutorCommand.LastName)));
 
         RuleFor(x => new { x.FirstName, x.LastName })
             .Must(x => FullName.Create(x.FirstName, x.LastName).IsSuccess)
@@ -33,7 +32,7 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
             {
                 RuleFor(x => x.CitizenId)
                     .Must(id => CitizenId.Create(id).IsSuccess)
-                    .WithError(Errors.General.ValueIsInvalid(nameof(CreateStudentCommand.CitizenId)));
+                    .WithError(Errors.General.ValueIsInvalid(nameof(CreateTutorCommand.CitizenId)));
             });
 
         // Passport is optional; validate only if provided
@@ -43,11 +42,11 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
             {
                 RuleFor(x => x.PassportNumber)
                     .NotEmpty()
-                    .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.PassportNumber)));
+                    .WithError(Errors.General.ValueIsRequired(nameof(CreateTutorCommand.PassportNumber)));
 
                 RuleFor(x => x.PassportCountry)
                     .NotEmpty()
-                    .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.PassportCountry)));
+                    .WithError(Errors.General.ValueIsRequired(nameof(CreateTutorCommand.PassportCountry)));
 
                 RuleFor(x => new { x.PassportNumber, x.PassportCountry })
                     .Must(x => Passport.Create(x.PassportNumber, x.PassportCountry).IsSuccess)
@@ -56,6 +55,6 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
 
         RuleFor(x => x.SchoolId)
             .Must(id => id == null || id != Guid.Empty)
-            .WithError(Errors.General.ValueIsInvalid(nameof(CreateStudentCommand.SchoolId)));
+            .WithError(Errors.General.ValueIsInvalid(nameof(CreateTutorCommand.SchoolId)));
     }
 }

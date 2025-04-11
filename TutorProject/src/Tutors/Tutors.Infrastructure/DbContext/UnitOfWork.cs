@@ -2,26 +2,26 @@ using System.Data.Common;
 using Microsoft.EntityFrameworkCore.Storage;
 using Shared.Database;
 
-namespace Students.Infrastructure.DbContext;
+namespace Tutors.Infrastructure.DbContext;
 
 internal class UnitOfWork : IUnitOfWork
 {
-    private readonly StudentsDbContext _accountsDbContext;
+    private readonly TutorsDbContext _tutorsDbContext;
 
-    public UnitOfWork(StudentsDbContext studentsDbContext)
+    public UnitOfWork(TutorsDbContext tutorsDbContext)
     {
-        _accountsDbContext = studentsDbContext;
+        _tutorsDbContext = tutorsDbContext;
     }
 
     public async Task<DbTransaction> BeginTransaction(CancellationToken cancellationToken = default)
     {
-        var transaction = await _accountsDbContext.Database.BeginTransactionAsync(cancellationToken);
+        var transaction = await _tutorsDbContext.Database.BeginTransactionAsync(cancellationToken);
 
         return transaction.GetDbTransaction();
     }
 
     public async Task SaveChanges(CancellationToken cancellationToken = default)
     {
-        await _accountsDbContext.SaveChangesAsync(cancellationToken);
+        await _tutorsDbContext.SaveChangesAsync(cancellationToken);
     }
 }

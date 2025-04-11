@@ -4,23 +4,21 @@ using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
-using Students.Application.Commands.CreateStudent;
-using Students.Application.Database;
-using Students.Domain.Students.Ids;
-using Students.Domain.Students.ValueObjects;
+using Tutors.Application.Commands.CreateTutor;
+using Tutors.Application.Database;
 
-namespace Students.Application.Commands.UpdateStudent;
+namespace Tutors.Application.Commands.UpdateTutor;
 
 public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
 {
-    private readonly IStudentsRepository _repository;
+    private readonly ITutorsRepository _repository;
     private readonly UpdateStudentCommandValidator _validator;
-    private readonly ILogger<CreateStudentHandler> _logger;
+    private readonly ILogger<CreateTutorHandler> _logger;
 
     public UpdateStudentHandler(
-        IStudentsRepository repository,
+        ITutorsRepository repository,
         UpdateStudentCommandValidator validator,
-        ILogger<CreateStudentHandler> logger)
+        ILogger<CreateTutorHandler> logger)
     {
         _repository = repository;
         _validator = validator;

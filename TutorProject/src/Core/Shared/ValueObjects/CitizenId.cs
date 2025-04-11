@@ -1,7 +1,7 @@
 using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 
-namespace Students.Domain.Students.ValueObjects;
+namespace Shared.ValueObjects;
 
 public class CitizenId : ComparableValueObject
 {

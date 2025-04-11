@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shared.ValueObjects;
 using Students.Domain.Students;
 using Students.Domain.Students.Ids;
 using Students.Domain.Students.ValueObjects;

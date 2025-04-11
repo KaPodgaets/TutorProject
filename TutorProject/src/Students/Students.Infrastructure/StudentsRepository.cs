@@ -1,6 +1,7 @@
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.ResultPattern;
+using Shared.ValueObjects;
 using Students.Application.Database;
 using Students.Domain.Students;
 using Students.Domain.Students.ValueObjects;
@@ -10,20 +11,20 @@ namespace Students.Infrastructure;
 
 public class StudentsRepository : IStudentsRepository
 {
-    private readonly StudentsReadDbContext _readDbContext;
+    private readonly StudentsDbContext _dbContext;
 
-    public StudentsRepository(StudentsReadDbContext readDbContext)
+    public StudentsRepository(StudentsDbContext dbContext)
     {
-        _readDbContext = readDbContext;
+        _dbContext = dbContext;
     }
 
     public async Task<Result<Guid, ErrorList>> Create(Student model, CancellationToken cancellationToken)
     {
         try
         {
-            await _readDbContext.Students.AddAsync(model, cancellationToken);
+            await _dbContext.Students.AddAsync(model, cancellationToken);
 
-            await _readDbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
         catch (Exception)
         {
@@ -35,21 +36,21 @@ public class StudentsRepository : IStudentsRepository
 
     public async Task<Result<Guid, ErrorList>> Delete(Student model, CancellationToken cancellationToken)
     {
-        _readDbContext.Students.Remove(model);
-        await _readDbContext.SaveChangesAsync(cancellationToken);
+        _dbContext.Students.Remove(model);
+        await _dbContext.SaveChangesAsync(cancellationToken);
         return model.Id.Value;
     }
 
     public async Task<Result<Guid, ErrorList>> Update(Student model, CancellationToken cancellationToken)
     {
-        _readDbContext.Students.Attach(model);
-        await _readDbContext.SaveChangesAsync(cancellationToken);
+        _dbContext.Students.Attach(model);
+        await _dbContext.SaveChangesAsync(cancellationToken);
         return model.Id.Value;
     }
 
     public async Task<Result<Student, ErrorList>> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var model = await _readDbContext.Students
+        var model = await _dbContext.Students
             .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
@@ -65,7 +66,7 @@ public class StudentsRepository : IStudentsRepository
         CitizenId citizenId,
         CancellationToken cancellationToken = default)
     {
-        var model = await _readDbContext.Students
+        var model = await _dbContext.Students
             .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.CitizenId == citizenId, cancellationToken);
 
@@ -81,7 +82,7 @@ public class StudentsRepository : IStudentsRepository
         Passport passport,
         CancellationToken cancellationToken = default)
     {
-        var model = await _readDbContext.Students
+        var model = await _dbContext.Students
             .Include(x => x.Parents)
             .FirstOrDefaultAsync(x => x.Passport == passport, cancellationToken);
 

@@ -4,31 +4,28 @@ using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
-using Students.Application.Commands.CreateStudent;
-using Students.Application.Database;
-using Students.Domain.Students.Ids;
-using Students.Domain.Students.ValueObjects;
+using Tutors.Application.Database;
 
-namespace Students.Application.Commands.UpdateStudent;
+namespace Tutors.Application.Commands.CreateTutor;
 
-public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
+public class CreateTutorHandler : ICommandHandler<Guid, CreateTutorCommand>
 {
-    private readonly IStudentsRepository _repository;
-    private readonly UpdateStudentCommandValidator _validator;
-    private readonly ILogger<CreateStudentHandler> _logger;
+    private readonly ITutorsRepository _repository;
+    private readonly CreateTutorCommandValidator _validator;
+    private readonly ILogger<CreateTutorHandler> _logger;
 
-    public UpdateStudentHandler(
-        IStudentsRepository repository,
-        UpdateStudentCommandValidator validator,
-        ILogger<CreateStudentHandler> logger)
+    public CreateTutorHandler(
+        ILogger<CreateTutorHandler> logger,
+        ITutorsRepository repository,
+        CreateTutorCommandValidator validator)
     {
+        _logger = logger;
         _repository = repository;
         _validator = validator;
-        _logger = logger;
     }
 
     public async Task<Result<Guid, ErrorList>> ExecuteAsync(
-        UpdateStudentCommand command,
+        CreateTutorCommand command,
         CancellationToken cancellationToken = default)
     {
         // validation inputs
@@ -45,6 +42,7 @@ public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
 
         // create new domain entity
         var fullName = FullName.Create(command.FirstName, command.LastName).Value;
+
         CitizenId citizenId = string.IsNullOrWhiteSpace(command.CitizenId)
             ? CitizenId.Create(command.CitizenId).Value
             : CitizenId.None;
@@ -54,26 +52,22 @@ public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
                 ? Passport.Create(command.PassportNumber, command.PassportCountry).Value
                 : Passport.None;
 
-        var studentId = StudentId.Create(command.StudentId).Value;
-        var existingStudent = await _repository.GetById(studentId, cancellationToken);
-        if (existingStudent.IsFailure)
-            return existingStudent.Error;
-
-        var updateResult = existingStudent.Value.Update(
+        var newStudentModel = Student.Create(
+            StudentId.NewStudentId(),
             fullName,
             citizenId,
             passport,
             command.SchoolId);
 
-        if (updateResult.IsFailure)
-            return updateResult.Error;
+        if (newStudentModel.IsFailure)
+            return newStudentModel.Error;
 
-        var saveChangesResult = await _repository.Update(existingStudent.Value, cancellationToken);
-        if (saveChangesResult.IsFailure)
-            return saveChangesResult.Error;
+        var createNewStudentResult = await _repository.Create(newStudentModel.Value, cancellationToken);
+        if (createNewStudentResult.IsFailure)
+            return createNewStudentResult.Error;
 
-        _logger.LogInformation("Student with id: {StudentId} created", saveChangesResult.Value);
+        _logger.LogInformation("Student with id: {StudentId} created", createNewStudentResult.Value);
 
-        return saveChangesResult.Value;
+        return createNewStudentResult.Value;
     }
 }

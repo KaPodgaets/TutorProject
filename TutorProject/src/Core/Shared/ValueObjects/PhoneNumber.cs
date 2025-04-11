@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 
-namespace Students.Domain.Students.ValueObjects;
+namespace Shared.ValueObjects;
 
 /// <summary>
 /// Use this class only for mobile phone numbers.
@@ -16,6 +16,8 @@ public partial class PhoneNumber : ComparableValueObject
     {
         Value = phoneNumber;
     }
+
+    public PhoneNumber Empty { get; } = new PhoneNumber(string.Empty);
 
     public string Value { get; init; }
 

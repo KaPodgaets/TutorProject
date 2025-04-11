@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 
-namespace Students.Domain.Students.ValueObjects;
+namespace Shared.ValueObjects;
 
 public class FullName : ComparableValueObject
 {
@@ -12,6 +12,8 @@ public class FullName : ComparableValueObject
         FirstName = firstName;
         LastName = lastName;
     }
+
+    public static FullName None { get; } = new FullName(string.Empty, string.Empty);
 
     public string FirstName { get; private init; }
 
@@ -26,6 +28,7 @@ public class FullName : ComparableValueObject
         if (string.IsNullOrWhiteSpace(lastName))
             return Errors.General.ValueIsInvalid(nameof(LastName)).ToErrorList();
 
+        // TODO add check for name length
         return new FullName(firstName, lastName);
     }
 
