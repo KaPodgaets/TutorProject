@@ -14,10 +14,10 @@ public class CitizenId : ComparableValueObject
 
     public string Value { get; init; }
 
-    public static Result<CitizenId, ErrorList> Create(string? citizenId)
+    public static Result<CitizenId, Error> Create(string? citizenId)
     {
         if (string.IsNullOrWhiteSpace(citizenId))
-            return Errors.General.ValueIsInvalid(nameof(citizenId)).ToErrorList();
+            return Errors.General.ValueIsInvalid(nameof(citizenId));
 
         return new CitizenId(citizenId);
     }

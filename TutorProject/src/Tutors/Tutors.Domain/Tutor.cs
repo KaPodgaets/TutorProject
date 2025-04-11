@@ -14,12 +14,20 @@ public class Tutor : Entity<TutorId>, ISoftDeletable
     {
     }
 
-    public Tutor(TutorId id, FullName fullName, CitizenId citizenId, Address address)
+    public Tutor(
+        TutorId id,
+        FullName fullName,
+        CitizenId citizenId,
+        Address address,
+        Email email,
+        PhoneNumber phoneNumber)
         : base(id)
     {
         CitizenId = citizenId;
         FullName = fullName;
         Address = address;
+        Email = email;
+        PhoneNumber = phoneNumber;
     }
 
     public FullName FullName { get; set; } = null!;
@@ -40,7 +48,13 @@ public class Tutor : Entity<TutorId>, ISoftDeletable
 
     public DateTime? DeletedOn { get; private set; }
 
-    public static Result<Tutor, ErrorList> Create(TutorId id, FullName fullName, CitizenId citizenId, Address address)
+    public static Result<Tutor, ErrorList> Create(
+        TutorId id,
+        FullName fullName,
+        CitizenId citizenId,
+        Address address,
+        Email email,
+        PhoneNumber phoneNumber)
     {
         if (TutorId.None == id)
             return Errors.General.ValueIsRequired(nameof(TutorId)).ToErrorList();
@@ -51,7 +65,13 @@ public class Tutor : Entity<TutorId>, ISoftDeletable
         if (CitizenId.None == citizenId)
             return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
 
-        return new Tutor(id, fullName, citizenId, address);
+        if (Email.None == citizenId)
+            return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
+
+        if (PhoneNumber.None == phoneNumber)
+            return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
+
+        return new Tutor(id, fullName, citizenId, address, email, phoneNumber);
     }
 
     public void Delete()

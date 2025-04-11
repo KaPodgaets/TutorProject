@@ -1,18 +1,20 @@
+using Tutors.Application.Commands.CreateTutor;
+using Tutors.Application.Queries;
 using Tutors.Contracts.Requests;
 
 namespace Tutors.Presentation;
 
 public static class ContractRequestExtensions
 {
-    public static CreateStudentCommand ToCommand(this CreateTutorRequest request)
+    public static CreateTutorCommand ToCommand(this CreateTutorRequest request)
     {
-        return new CreateStudentCommand(
+        return new CreateTutorCommand(
             request.FirstName,
             request.LastName,
             request.CitizenId,
-            request.PassportNumber,
-            request.PassportCountry,
-            request.SchoolId);
+            request.Address,
+            request.PhoneNumber,
+            request.Email);
     }
 
     public static UpdateStudentCommand ToCommand(this UpdateTutorRequest request, Guid studentId)
@@ -27,14 +29,13 @@ public static class ContractRequestExtensions
             request.SchoolId);
     }
 
-    public static GetFilteredStudentsWithPaginationQuery ToQuery(this GetFilteredTutorsWithPaginationRequest request)
+    public static GetFilteredTutorsWithPaginationQuery ToQuery(this GetFilteredTutorsWithPaginationRequest request)
     {
-        return new GetFilteredStudentsWithPaginationQuery(
-            request.StudentId,
-            request.SchoolId,
-            request.ParentId,
-            request.IsNeedTutor,
-            request.HasTutor,
+        return new GetFilteredTutorsWithPaginationQuery(
+            request.TutorId,
+            request.FirstName,
+            request.LastName,
+            request.CitizenId,
             request.Page,
             request.PageSize);
     }

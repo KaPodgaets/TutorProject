@@ -17,17 +17,17 @@ public partial class PhoneNumber : ComparableValueObject
         Value = phoneNumber;
     }
 
-    public PhoneNumber Empty { get; } = new PhoneNumber(string.Empty);
+    public static PhoneNumber None { get; } = new PhoneNumber(string.Empty);
 
     public string Value { get; init; }
 
-    public static Result<PhoneNumber, ErrorList> Create(string phoneNumber)
+    public static Result<PhoneNumber, Error> Create(string phoneNumber)
     {
         if (string.IsNullOrWhiteSpace(phoneNumber))
-            return Errors.General.ValueIsInvalid(nameof(phoneNumber)).ToErrorList();
+            return Errors.General.ValueIsInvalid(nameof(phoneNumber));
 
         if (!MyRegex().IsMatch(phoneNumber))
-            return Errors.General.ValueIsInvalid(nameof(phoneNumber)).ToErrorList();
+            return Errors.General.ValueIsInvalid(nameof(phoneNumber));
 
         return new PhoneNumber(phoneNumber);
     }

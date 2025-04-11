@@ -5,6 +5,7 @@ using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
 using Tutors.Application.Database;
+using Tutors.Domain;
 
 namespace Tutors.Application.Commands.CreateTutor;
 
@@ -38,31 +39,36 @@ public class CreateTutorHandler : ICommandHandler<Guid, CreateTutorCommand>
         // business logic validation
         // TODO - check that same FullName already exists - notification only in UI, without error in back-end
         // TODO - check that citizenId already exists
-        // TODO - check that passport already exists
 
         // create new domain entity
         var fullName = FullName.Create(command.FirstName, command.LastName).Value;
 
-        CitizenId citizenId = string.IsNullOrWhiteSpace(command.CitizenId)
-            ? CitizenId.Create(command.CitizenId).Value
-            : CitizenId.None;
+        CitizenId citizenId = CitizenId.Create(command.CitizenId).Value;
 
-        Passport passport = (command.PassportNumber, command.PassportCountry) is
-            (not null, not null)
-                ? Passport.Create(command.PassportNumber, command.PassportCountry).Value
-                : Passport.None;
+        Address address = Address.Create(
+            command.Address.StreetCode,
+            command.Address.StreetName,
+            command.Address.CityCode,
+            command.Address.CityName,
+            command.Address.BuildingNumber,
+            command.Address.BuildingLetter).Value;
 
-        var newStudentModel = Student.Create(
-            StudentId.NewStudentId(),
+        var phoneNumber = PhoneNumber.Create(command.PhoneNumber).Value;
+
+        var email = Email.Create(command.Email).Value;
+
+        var newTutorModel = Tutor.Create(
+            TutorId.NewTutorId(),
             fullName,
             citizenId,
-            passport,
-            command.SchoolId);
+            address,
+            email,
+            phoneNumber);
 
-        if (newStudentModel.IsFailure)
-            return newStudentModel.Error;
+        if (newTutorModel.IsFailure)
+            return newTutorModel.Error;
 
-        var createNewStudentResult = await _repository.Create(newStudentModel.Value, cancellationToken);
+        var createNewStudentResult = await _repository.Create(newTutorModel.Value, cancellationToken);
         if (createNewStudentResult.IsFailure)
             return createNewStudentResult.Error;
 
