@@ -1,11 +1,12 @@
+﻿using Shared.Abstractions;
 using Tutors.Contracts.Dtos;
 
-namespace Tutors.Contracts.Requests;
+namespace Tutors.Application.Commands.UpdateTutor;
 
-public record UpdateTutorRequest(
+public record UpdateTutorCommand(
     string FirstName,
     string LastName,
     string CitizenId,
     AddressDto Address,
     string PhoneNumber,
-    string Email);
+    string Email) : ICommand;

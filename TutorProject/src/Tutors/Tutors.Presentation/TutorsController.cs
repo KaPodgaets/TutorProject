@@ -1,18 +1,24 @@
+using Framework;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
+using Tutors.Application.Commands.CreateTutor;
+using Tutors.Application.Commands.DeleteTutor;
+using Tutors.Application.Commands.UpdateTutor;
+using Tutors.Application.Queries;
 using Tutors.Contracts.Requests;
 
 namespace Tutors.Presentation;
 
+// TODO add soft delete endpoint and force delete endpoint
 [ApiController]
 [Route("[controller]")]
-public class StudentsController : ApplicationController
+public class TutorsController : ApplicationController
 {
     // [Permission(Permissions.Students.CREATE)]
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromBody] CreateTutorRequest request,
-        [FromServices] CreateStudentHandler handler,
+        [FromServices] CreateTutorHandler handler,
         CancellationToken cancellationToken)
     {
         var command = request.ToCommand();
@@ -29,7 +35,7 @@ public class StudentsController : ApplicationController
     [HttpGet]
     public async Task<IActionResult> GetAllFilteredWithPagination(
         [FromQuery] GetFilteredTutorsWithPaginationRequest request,
-        [FromServices] GetFilteredStudentsWithPaginationHandler handler,
+        [FromServices] GetFilteredTutorsWithPaginationHandler handler,
         CancellationToken cancellationToken)
     {
         var query = request.ToQuery();
@@ -41,7 +47,7 @@ public class StudentsController : ApplicationController
     public async Task<IActionResult> Update(
         [FromRoute] Guid studentId,
         [FromBody] UpdateTutorRequest request,
-        [FromServices] UpdateStudentHandler handler,
+        [FromServices] UpdateTutorHandler handler,
         CancellationToken cancellationToken)
     {
         var command = request.ToCommand(studentId);
@@ -55,13 +61,13 @@ public class StudentsController : ApplicationController
         return Ok(result.Value);
     }
 
-    [HttpDelete("{userId:guid}")]
+    [HttpDelete("{tutorId:guid}")]
     public async Task<IActionResult> Delete(
-        [FromRoute] Guid userId,
-        [FromServices] DeleteStudentHandler handler,
+        [FromRoute] Guid tutorId,
+        [FromServices] DeleteTutorHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteStudentCommand(userId);
+        var command = new DeleteTutorCommand(tutorId);
         var result = await handler.ExecuteAsync(command, cancellationToken);
 
         if (result.IsFailure)

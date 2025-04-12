@@ -4,19 +4,20 @@ using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
 using Tutors.Application.Database;
+using Tutors.Domain;
 
 namespace Tutors.Application.Commands.DeleteTutor;
 
-public class DeleteStudentHandler : ICommandHandler<Guid, DeleteStudentCommand>
+public class DeleteTutorHandler : ICommandHandler<Guid, DeleteTutorCommand>
 {
     private readonly ITutorsRepository _repository;
-    private readonly DeleteStudentCommandValidator _validator;
-    private readonly ILogger<DeleteStudentHandler> _logger;
+    private readonly DeleteTutorCommandValidator _validator;
+    private readonly ILogger<DeleteTutorHandler> _logger;
 
-    public DeleteStudentHandler(
+    public DeleteTutorHandler(
         ITutorsRepository repository,
-        DeleteStudentCommandValidator validator,
-        ILogger<DeleteStudentHandler> logger)
+        DeleteTutorCommandValidator validator,
+        ILogger<DeleteTutorHandler> logger)
     {
         _repository = repository;
         _validator = validator;
@@ -24,7 +25,7 @@ public class DeleteStudentHandler : ICommandHandler<Guid, DeleteStudentCommand>
     }
 
     public async Task<Result<Guid, ErrorList>> ExecuteAsync(
-        DeleteStudentCommand command,
+        DeleteTutorCommand command,
         CancellationToken cancellationToken = default)
     {
         // validation inputs
@@ -34,12 +35,12 @@ public class DeleteStudentHandler : ICommandHandler<Guid, DeleteStudentCommand>
             return validationResult.ToErrorList();
         }
 
-        var studentId = StudentId.Create(command.StudentId).Value;
+        var studentId = TutorId.Create(command.TutorId).Value;
         var existingStudent = await _repository.GetById(studentId, cancellationToken);
         if (existingStudent.IsFailure)
             return existingStudent.Error;
 
-        // TODO - Business logic validation (for example that he is not assigned to tutor
+        // TODO - Business logic validation (for example that he does not have students
         var deleteStudent = await _repository.Delete(existingStudent.Value, cancellationToken);
         if (deleteStudent.IsFailure)
             return deleteStudent.Error;

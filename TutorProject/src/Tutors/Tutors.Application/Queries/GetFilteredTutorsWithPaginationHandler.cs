@@ -31,17 +31,14 @@ public class GetFilteredTutorsWithPaginationHandler
                 query.TutorId is not null,
                 p => p.Id == query.TutorId)
             .WhereIf(
+                query.CitizenId is not null,
+                p => p.CitizenId.Value == query.CitizenId)
+            .WhereIf(
                 query.FirstName is not null,
-                p => p.FullName.Where(x => x.Id.Value == query.ParentId))
+                p => p.FullName.FirstName == query.FirstName)
             .WhereIf(
-                query.SchoolId is not null,
-                p => p.SchoolId == query.SchoolId)
-            .WhereIf(
-                query.IsNeedTutor is not null,
-                p => p.TutorHoursNeeded > 0 == query.IsNeedTutor)
-            .WhereIf(
-                query.HasTutor is not null,
-                p => (p.TutorId != null) == query.HasTutor);
+                query.LastName is not null,
+                p => p.FullName.LastName == query.LastName);
 
         var pagedList = await studentsQuery
             .ToPagedList(query.Page, query.PageSize, cancellationToken);

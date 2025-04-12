@@ -6,18 +6,19 @@ using Shared.Validation;
 using Shared.ValueObjects;
 using Tutors.Application.Commands.CreateTutor;
 using Tutors.Application.Database;
+using Tutors.Domain;
 
 namespace Tutors.Application.Commands.UpdateTutor;
 
-public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
+public class UpdateTutorHandler : ICommandHandler<Guid, UpdateTutorCommand>
 {
     private readonly ITutorsRepository _repository;
-    private readonly UpdateStudentCommandValidator _validator;
+    private readonly UpdateTutorCommandValidator _validator;
     private readonly ILogger<CreateTutorHandler> _logger;
 
-    public UpdateStudentHandler(
+    public UpdateTutorHandler(
         ITutorsRepository repository,
-        UpdateStudentCommandValidator validator,
+        UpdateTutorCommandValidator validator,
         ILogger<CreateTutorHandler> logger)
     {
         _repository = repository;
@@ -26,7 +27,7 @@ public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
     }
 
     public async Task<Result<Guid, ErrorList>> ExecuteAsync(
-        UpdateStudentCommand command,
+        UpdateTutorCommand command,
         CancellationToken cancellationToken = default)
     {
         // validation inputs
@@ -43,30 +44,33 @@ public class UpdateStudentHandler : ICommandHandler<Guid, UpdateStudentCommand>
 
         // create new domain entity
         var fullName = FullName.Create(command.FirstName, command.LastName).Value;
-        CitizenId citizenId = string.IsNullOrWhiteSpace(command.CitizenId)
-            ? CitizenId.Create(command.CitizenId).Value
-            : CitizenId.None;
 
-        Passport passport = (command.PassportNumber, command.PassportCountry) is
-            (not null, not null)
-                ? Passport.Create(command.PassportNumber, command.PassportCountry).Value
-                : Passport.None;
+        CitizenId citizenId = CitizenId.Create(command.CitizenId).Value;
 
-        var studentId = StudentId.Create(command.StudentId).Value;
-        var existingStudent = await _repository.GetById(studentId, cancellationToken);
-        if (existingStudent.IsFailure)
-            return existingStudent.Error;
+        Address address = Address.Create(
+            command.Address.StreetCode,
+            command.Address.StreetName,
+            command.Address.CityCode,
+            command.Address.CityName,
+            command.Address.BuildingNumber,
+            command.Address.BuildingLetter).Value;
 
-        var updateResult = existingStudent.Value.Update(
+        var phoneNumber = PhoneNumber.Create(command.PhoneNumber).Value;
+
+        var email = Email.Create(command.Email).Value;
+
+        var newTutorModel = Tutor.Create(
+            TutorId.NewTutorId(),
             fullName,
             citizenId,
-            passport,
-            command.SchoolId);
+            address,
+            email,
+            phoneNumber);
 
-        if (updateResult.IsFailure)
-            return updateResult.Error;
+        if (newTutorModel.IsFailure)
+            return newTutorModel.Error;
 
-        var saveChangesResult = await _repository.Update(existingStudent.Value, cancellationToken);
+        var saveChangesResult = await _repository.Update(newTutorModel.Value, cancellationToken);
         if (saveChangesResult.IsFailure)
             return saveChangesResult.Error;
 

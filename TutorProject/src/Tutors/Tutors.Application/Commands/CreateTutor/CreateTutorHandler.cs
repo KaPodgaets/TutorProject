@@ -68,12 +68,12 @@ public class CreateTutorHandler : ICommandHandler<Guid, CreateTutorCommand>
         if (newTutorModel.IsFailure)
             return newTutorModel.Error;
 
-        var createNewStudentResult = await _repository.Create(newTutorModel.Value, cancellationToken);
-        if (createNewStudentResult.IsFailure)
-            return createNewStudentResult.Error;
+        var saveNewTutorResult = await _repository.Create(newTutorModel.Value, cancellationToken);
+        if (saveNewTutorResult.IsFailure)
+            return saveNewTutorResult.Error;
 
-        _logger.LogInformation("Student with id: {StudentId} created", createNewStudentResult.Value);
+        _logger.LogInformation("Student with id: {StudentId} created", saveNewTutorResult.Value);
 
-        return createNewStudentResult.Value;
+        return saveNewTutorResult.Value;
     }
 }

@@ -9,3 +9,6 @@ public record GetFilteredTutorsWithPaginationQuery(
     string? CitizenId,
     int Page,
     int PageSize) : IQuery;
+
+// TODO add filtration with "hasStudents"
+// TODO add FullNameDto into contracts Dtos

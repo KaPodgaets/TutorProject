@@ -2,4 +2,4 @@
 
 namespace Tutors.Application.Commands.DeleteTutor;
 
-public record DeleteStudentCommand(Guid StudentId) : ICommand;
+public record DeleteTutorCommand(Guid TutorId) : ICommand;

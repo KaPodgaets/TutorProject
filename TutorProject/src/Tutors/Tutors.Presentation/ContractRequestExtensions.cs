@@ -1,4 +1,5 @@
 using Tutors.Application.Commands.CreateTutor;
+using Tutors.Application.Commands.UpdateTutor;
 using Tutors.Application.Queries;
 using Tutors.Contracts.Requests;
 
@@ -17,16 +18,15 @@ public static class ContractRequestExtensions
             request.Email);
     }
 
-    public static UpdateStudentCommand ToCommand(this UpdateTutorRequest request, Guid studentId)
+    public static UpdateTutorCommand ToCommand(this UpdateTutorRequest request, Guid studentId)
     {
-        return new UpdateStudentCommand(
-            studentId,
+        return new UpdateTutorCommand(
             request.FirstName,
             request.LastName,
             request.CitizenId,
-            request.PassportNumber,
-            request.PassportCountry,
-            request.SchoolId);
+            request.Address,
+            request.PhoneNumber,
+            request.Email);
     }
 
     public static GetFilteredTutorsWithPaginationQuery ToQuery(this GetFilteredTutorsWithPaginationRequest request)
