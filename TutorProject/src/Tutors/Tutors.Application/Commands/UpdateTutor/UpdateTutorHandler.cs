@@ -43,6 +43,12 @@ public class UpdateTutorHandler : ICommandHandler<Guid, UpdateTutorCommand>
         // TODO - check that passport already exists
 
         // create new domain entity
+        TutorId tutorId = command.TutorId;
+
+        var existingTutor = await _repository.GetById(tutorId, cancellationToken);
+        if (existingTutor.IsFailure)
+            return existingTutor.Error;
+
         var fullName = FullName.Create(command.FirstName, command.LastName).Value;
 
         CitizenId citizenId = CitizenId.Create(command.CitizenId).Value;
@@ -59,22 +65,21 @@ public class UpdateTutorHandler : ICommandHandler<Guid, UpdateTutorCommand>
 
         var email = Email.Create(command.Email).Value;
 
-        var newTutorModel = Tutor.Create(
-            TutorId.NewTutorId(),
+        var updateResult = existingTutor.Value.Update(
             fullName,
             citizenId,
             address,
             email,
             phoneNumber);
 
-        if (newTutorModel.IsFailure)
-            return newTutorModel.Error;
+        if (updateResult.IsFailure)
+            return updateResult.Error;
 
-        var saveChangesResult = await _repository.Update(newTutorModel.Value, cancellationToken);
+        var saveChangesResult = await _repository.Update(existingTutor.Value, cancellationToken);
         if (saveChangesResult.IsFailure)
             return saveChangesResult.Error;
 
-        _logger.LogInformation("Student with id: {StudentId} created", saveChangesResult.Value);
+        _logger.LogInformation("Tutor with id: {TutorId} created", saveChangesResult.Value);
 
         return saveChangesResult.Value;
     }

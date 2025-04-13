@@ -18,9 +18,10 @@ public static class ContractRequestExtensions
             request.Email);
     }
 
-    public static UpdateTutorCommand ToCommand(this UpdateTutorRequest request, Guid studentId)
+    public static UpdateTutorCommand ToCommand(this UpdateTutorRequest request, Guid tutorId)
     {
         return new UpdateTutorCommand(
+            tutorId,
             request.FirstName,
             request.LastName,
             request.CitizenId,

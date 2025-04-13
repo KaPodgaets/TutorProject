@@ -4,6 +4,7 @@ using Tutors.Contracts.Dtos;
 namespace Tutors.Application.Commands.UpdateTutor;
 
 public record UpdateTutorCommand(
+    Guid TutorId,
     string FirstName,
     string LastName,
     string CitizenId,
