@@ -90,6 +90,6 @@ public class TutorConfiguration : IEntityTypeConfiguration<Tutor>
 
         builder.Property(typeof(List<Guid>), "_studentIds")
             .HasColumnName("student_ids")
-            .HasColumnType("jsonb");
+            .HasColumnType("uuid[]");
     }
 }

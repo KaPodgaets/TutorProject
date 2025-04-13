@@ -3,6 +3,7 @@ using Shared.ResultPattern;
 using Shared.Validation;
 using Shared.ValueObjects;
 using Tutors.Application.Commands.CreateTutor;
+using Tutors.Domain;
 
 namespace Tutors.Application.Commands.UpdateTutor;
 
@@ -10,6 +11,9 @@ public class UpdateTutorCommandValidator : AbstractValidator<UpdateTutorCommand>
 {
     public UpdateTutorCommandValidator()
     {
+        RuleFor(command => command.TutorId).NotEmpty()
+            .WithError(Errors.General.ValueIsRequired(nameof(TutorId)));
+
         RuleFor(x => x.FirstName)
             .NotEmpty()
             .WithError(Errors.General.ValueIsRequired(nameof(CreateTutorCommand.FirstName)));

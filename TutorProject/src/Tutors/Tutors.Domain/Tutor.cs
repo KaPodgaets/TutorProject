@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using CSharpFunctionalExtensions;
 using Shared;
 using Shared.ResultPattern;
@@ -72,6 +73,34 @@ public class Tutor : Entity<TutorId>, ISoftDeletable
             return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
 
         return new Tutor(id, fullName, citizenId, address, email, phoneNumber);
+    }
+
+    public UnitResult<ErrorList> Update(
+        FullName fullName,
+        CitizenId citizenId,
+        Address address,
+        Email email,
+        PhoneNumber phoneNumber)
+    {
+        if (FullName.None == fullName)
+            return Errors.General.ValueIsRequired(nameof(FullName)).ToErrorList();
+
+        if (CitizenId.None == citizenId)
+            return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
+
+        if (Email.None == citizenId)
+            return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
+
+        if (PhoneNumber.None == phoneNumber)
+            return Errors.General.ValueIsRequired(nameof(CitizenId)).ToErrorList();
+
+        FullName = fullName;
+        CitizenId = citizenId;
+        Address = address;
+        Email = email;
+        PhoneNumber = phoneNumber;
+
+        return UnitResult.Success<ErrorList>();
     }
 
     public void Delete()
