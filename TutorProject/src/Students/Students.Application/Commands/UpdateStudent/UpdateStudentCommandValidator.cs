@@ -25,13 +25,15 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
             .Must(x => FullName.Create(x.FirstName, x.LastName).IsSuccess)
             .WithError(Errors.General.ValueIsInvalid(nameof(FullName)));
 
-        RuleFor(x => x.CitizenId)
-            .NotEmpty()
-            .WithError(Errors.General.ValueIsRequired(nameof(CreateStudentCommand.CitizenId)));
-
-        RuleFor(x => x.CitizenId)
-            .Must(id => Students.Domain.Students.ValueObjects.CitizenId.Create(id).IsSuccess)
-            .WithError(Errors.General.ValueIsInvalid(nameof(CreateStudentCommand.CitizenId)));
+        // CitizenId is optional; validate only if provided
+        When(
+            x => string.IsNullOrWhiteSpace(x.CitizenId) is false,
+            () =>
+            {
+                RuleFor(x => x.CitizenId)
+                    .Must(id => Students.Domain.Students.ValueObjects.CitizenId.Create(id).IsSuccess)
+                    .WithError(Errors.General.ValueIsInvalid(nameof(CreateStudentCommand.CitizenId)));
+            });
 
         // Passport is optional; validate only if provided
         When(

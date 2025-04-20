@@ -44,12 +44,15 @@ public class CreateStudentHandler : ICommandHandler<Guid, CreateStudentCommand>
 
         // create new domain entity
         var fullName = FullName.Create(command.FirstName, command.LastName).Value;
-        var citizenId = CitizenId.Create(command.CitizenId).Value;
 
-        var passport = (command.PassportNumber, command.PassportCountry) is
+        CitizenId citizenId = string.IsNullOrWhiteSpace(command.CitizenId)
+            ? CitizenId.Create(command.CitizenId).Value
+            : CitizenId.None;
+
+        Passport passport = (command.PassportNumber, command.PassportCountry) is
             (not null, not null)
-            ? Passport.Create(command.PassportNumber, command.PassportCountry).Value
-            : null;
+                ? Passport.Create(command.PassportNumber, command.PassportCountry).Value
+                : Passport.None;
 
         var newStudentModel = Student.Create(
             StudentId.NewStudentId(),

@@ -10,9 +10,11 @@ public class CitizenId : ComparableValueObject
         Value = citizenId;
     }
 
+    public static CitizenId None { get; } = new CitizenId(string.Empty);
+
     public string Value { get; init; }
 
-    public static Result<CitizenId, ErrorList> Create(string citizenId)
+    public static Result<CitizenId, ErrorList> Create(string? citizenId)
     {
         if (string.IsNullOrWhiteSpace(citizenId))
             return Errors.General.ValueIsInvalid(nameof(citizenId)).ToErrorList();
