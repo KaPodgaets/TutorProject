@@ -6,7 +6,7 @@ using Students.Domain.Students;
 
 namespace Students.Infrastructure.DbContext;
 
-public class StudentsReadDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext, IStudentsReadDbContext
+public class StudentsDbContext(string connectionString) : Microsoft.EntityFrameworkCore.DbContext, IStudentsReadDbContext
 {
     // Write
     public DbSet<Student> Students => Set<Student>();
@@ -31,7 +31,7 @@ public class StudentsReadDbContext(string connectionString) : Microsoft.EntityFr
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(StudentsReadDbContext).Assembly,
+            typeof(StudentsDbContext).Assembly,
             type => type.FullName?.Contains("Configurations") ?? false);
 
         modelBuilder.HasDefaultSchema("students");

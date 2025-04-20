@@ -1,6 +1,7 @@
 using FluentValidation;
 using Shared.ResultPattern;
 using Shared.Validation;
+using Shared.ValueObjects;
 using Students.Application.Commands.CreateStudent;
 using Students.Domain.Students.ValueObjects;
 
@@ -31,7 +32,7 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
             () =>
             {
                 RuleFor(x => x.CitizenId)
-                    .Must(id => Students.Domain.Students.ValueObjects.CitizenId.Create(id).IsSuccess)
+                    .Must(id => CitizenId.Create(id).IsSuccess)
                     .WithError(Errors.General.ValueIsInvalid(nameof(CreateStudentCommand.CitizenId)));
             });
 

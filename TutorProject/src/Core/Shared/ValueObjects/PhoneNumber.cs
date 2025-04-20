@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 using CSharpFunctionalExtensions;
 using Shared.ResultPattern;
 
-namespace Students.Domain.Students.ValueObjects;
+namespace Shared.ValueObjects;
 
 /// <summary>
 /// Use this class only for mobile phone numbers.
@@ -17,15 +17,17 @@ public partial class PhoneNumber : ComparableValueObject
         Value = phoneNumber;
     }
 
+    public static PhoneNumber None { get; } = new PhoneNumber(string.Empty);
+
     public string Value { get; init; }
 
-    public static Result<PhoneNumber, ErrorList> Create(string phoneNumber)
+    public static Result<PhoneNumber, Error> Create(string phoneNumber)
     {
         if (string.IsNullOrWhiteSpace(phoneNumber))
-            return Errors.General.ValueIsInvalid(nameof(phoneNumber)).ToErrorList();
+            return Errors.General.ValueIsInvalid(nameof(phoneNumber));
 
         if (!MyRegex().IsMatch(phoneNumber))
-            return Errors.General.ValueIsInvalid(nameof(phoneNumber)).ToErrorList();
+            return Errors.General.ValueIsInvalid(nameof(phoneNumber));
 
         return new PhoneNumber(phoneNumber);
     }

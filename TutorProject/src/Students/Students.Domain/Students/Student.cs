@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Shared;
 using Shared.ResultPattern;
+using Shared.ValueObjects;
 using Students.Domain.Students.Ids;
 using Students.Domain.Students.ValueObjects;
 

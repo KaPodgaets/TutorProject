@@ -3,11 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Abstractions;
 using Shared.Database;
 using Shared.Enums;
-using Students.Application.Database;
-using Students.Infrastructure.DbContext;
-using Students.Infrastructure.Migrator;
+using Tutors.Application.Database;
+using Tutors.Infrastructure.DbContext;
+using Tutors.Infrastructure.Migrator;
 
-namespace Students.Infrastructure;
+namespace Tutors.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -25,18 +25,18 @@ public static class DependencyInjection
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IStudentsRepository, StudentsRepository>();
+        services.AddScoped<ITutorsRepository, TutorsRepository>();
 
         return services;
     }
 
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<StudentsDbContext>(
-            _ => new StudentsDbContext(configuration.GetConnectionString("Database")!));
+        services.AddScoped<TutorsDbContext>(
+            _ => new TutorsDbContext(configuration.GetConnectionString("Database")!));
 
-        services.AddScoped<IStudentsReadDbContext, StudentsDbContext>(
-            _ => new StudentsDbContext(configuration.GetConnectionString("Database")!));
+        services.AddScoped<ITutorsReadDbContext, TutorsDbContext>(
+            _ => new TutorsDbContext(configuration.GetConnectionString("Database")!));
 
         services.AddKeyedScoped<IUnitOfWork, UnitOfWork>(Modules.Students);
 
@@ -45,7 +45,7 @@ public static class DependencyInjection
 
     private static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-        services.AddScoped<IMigrator, StudentsMigrator>();
+        services.AddScoped<IMigrator, TutorsMigrator>();
 
         return services;
     }

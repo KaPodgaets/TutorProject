@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Tutors.Contracts\Tutors.Contracts.csproj" />
+      <ProjectReference Include="..\Tutors.Domain\Tutors.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

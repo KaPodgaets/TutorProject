@@ -16,6 +16,8 @@ public sealed partial class Email : ComparableValueObject
         Value = value;
     }
 
+    public static Email None { get; } = new Email(string.Empty);
+
     public string Value { get; init; }
 
     public static Result<Email, Error> Create(string email)

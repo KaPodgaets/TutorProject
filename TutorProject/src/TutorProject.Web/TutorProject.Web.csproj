@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Shared\Shared.csproj"/>
     <ProjectReference Include="..\Students\Students.Presentation\Students.Presentation.csproj" />
+    <ProjectReference Include="..\Tutors\Tutors.Presentation\Tutors.Presentation.csproj" />
     <ProjectReference Include="..\Users\Users.Presentation\Users.Presentation.csproj"/>
   </ItemGroup>
 

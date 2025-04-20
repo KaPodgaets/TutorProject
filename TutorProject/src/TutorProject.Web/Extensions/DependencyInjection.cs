@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Abstractions;
 using Students.Presentation;
+using Tutors.Presentation;
 using Users.Infrastructure.Postgres.Options;
 using Users.Presentation;
 
@@ -32,7 +33,8 @@ public static class DependencyInjection
         services.AddApplicationLayers(configuration);
 
         services.AddUsersModule(configuration)
-            .AddStudentsModule(configuration);
+            .AddStudentsModule(configuration)
+            .AddTutorsModule(configuration);
 
         return services;
     }
@@ -44,7 +46,8 @@ public static class DependencyInjection
         var assemblies = new[]
         {
             typeof(Users.Application.DependencyInjection).Assembly,
-            typeof(Students.Application.DependencyInjection).Assembly
+            typeof(Students.Application.DependencyInjection).Assembly,
+            typeof(Tutors.Application.DependencyInjection).Assembly
         };
 
         services.Scan(

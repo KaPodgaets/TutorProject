@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Shared.Abstractions;
 using Shared.ResultPattern;
 using Shared.Validation;
+using Shared.ValueObjects;
 using Students.Application.Commands.CreateStudent;
 using Students.Application.Database;
 using Students.Domain.Students.Ids;
